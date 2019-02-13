@@ -1,0 +1,4 @@
+export default {
+  '@LOGIN/ON_CHANGE': '@LOGIN/ON_CHANGE',
+  '@LOGIN/HAS_ERRORS': '@LOGIN/HAS_ERRORS'
+}
