@@ -1,6 +1,9 @@
 import React from 'react';
+import Radium from 'radium';
 import theme from '../../theme.js';
+import Terms from '../../components/Terms'
 import Input from '../../components/Input.js';
+import CheckBox from '../../components/icons/CheckBox';
 
 const Signup = ({
   actions,
@@ -16,29 +19,47 @@ const Signup = ({
                onChange={ value => actions._bindOnChange('firstname', value) }
                value={ form.firstname }
                errors={ form.errors.firstname }
+               canClear={ true }
         />
         <Input placeholder="Last Name"
                onChange={ value => actions._bindOnChange('lastname', value) }
                value={ form.lastname }
                errors={ form.errors.lastname }
+               canClear={ true }
         />
         <Input placeholder="Email"
                onChange={ value => actions._bindOnChange('email', value) }
                value={ form.email }
                errors={ form.errors.email }
+               canClear={ true }
         />
         <Input placeholder="Password"
                onChange={ value => actions._bindOnChange('password', value) }
                value={ form.password }
                errors={ form.errors.password }
+               canClear={ true }
                password
         />
         <Input placeholder="Password Confirmation"
                onChange={ value => actions._bindOnChange('passwordConfirmation', value) }
                value={ form.passwordConfirmation }
                errors={ form.errors.password_confirmation }
+               canClear={ true }
                password
         />
+        <div style={ styles.termsContainer } onClick={ () => {
+          actions.agreeToTerms();
+          actions._clearError('terms');
+        }}>
+          <CheckBox isChecked={ form.terms }/>
+          <p style={ styles.terms }>I agree to the
+            <span style={ styles.termsLink } onClick={ e => {
+              e.preventDefault();
+              actions.openModal(<Terms/>);
+            }}>terms and conditions</span>
+            { form.errors.terms ? <span style={ styles.error }>{ form.errors.terms }</span> : null }
+          </p>
+        </div>
         <button style={{ ...theme.btn, ...styles.signupBtn }} type="submit">Signup</button>
       </form>
     </div>
@@ -49,7 +70,26 @@ const styles = {
   signupBtn: {
     marginTop: 30,
     width: '100%'
+  },
+  termsContainer: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  terms: {
+    marginLeft: 10
+  },
+  termsLink: {
+    marginLeft: 4,
+    ':hover': {
+      cursor: 'pointer',
+      color: theme.colors.primary
+    }
+  },
+  error: {
+    marginLeft: 15,
+    fontSize: 10,
+    color: theme.colors.error.color
   }
 }
 
-export default Signup;
+export default Radium(Signup);

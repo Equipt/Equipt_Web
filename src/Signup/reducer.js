@@ -6,7 +6,8 @@ const defaultState = {
   email: '',
   password: '',
   passwordConfirmation: '',
-  errors: {}
+  errors: {},
+  terms: false
 }
 
 export default (state = defaultState, { type, payload }) => {
@@ -21,6 +22,8 @@ export default (state = defaultState, { type, payload }) => {
       return { ...state, errors };
     case types['@SIGNUP/CLEAR_FORM']:
       return defaultState;
+    case types['@SIGNUP/AGREE_TO_TERMS']:
+      return { ...state, terms: true }
     default:
       return state;
   }

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import theme from '../../theme.js';
+import Radium from 'radium';
 
 import Input from '../../components/Input';
+import CheckBox from '../../components/icons/CheckBox';
 import Facebook from './Facebook';
 
 const Login = ({
@@ -15,23 +17,23 @@ const Login = ({
         e.preventDefault();
         actions.login();
       }}>
-        <Input placeholder="email"
+        <Input placeholder="Email"
                onChange={ value => actions._bindOnChange('email', value) }
                value={ form.email }
         />
-        <Input placeholder="password"
+        <Input placeholder="Password"
                onChange={ value => actions._bindOnChange('password', value) }
                value={ form.password }
                password
         />
-        <input  style={{ ...styles.checkbox, ...theme.checkbox }}
-                type="checkbox"
-        />
-        <label style={ styles.rememberMeTxt }>Remember me</label>
-        <button style={{ ...theme.btn, ...styles.loginBtn }} type="submit">Login</button>
-        <Link style={ styles.forgotPassword } to="/forgot_password">Need Help Logging in?</Link>
+        <div style={ styles.checkboxContainer } onClick={ () => actions.toggleRememberMe() }>
+          <CheckBox isChecked={ form.rememberMe }/>
+          <label style={ styles.rememberMeTxt }>Remember me</label>
+        </div>
+        <button style={ styles.loginBtn } type="submit">Login</button>
+        <Link style={ styles.forgotPassword } to="/forgot">Need Help Logging in?</Link>
       </form>
-      <p style={ styles.seperator }>Or</p>
+      <div style={ styles.seperator }/>
       <Facebook facebookLogin={ actions.facebookLogin }/>
     </div>
   </section>
@@ -39,15 +41,16 @@ const Login = ({
 
 const styles = {
   loginBtn: {
-    marginTop: 30,
+    ...theme.btn,
+    margin: '30px 0 0 0',
     width: '100%'
   },
-  checkbox: {
-    float: 'left'
+  checkboxContainer: {
+    display: 'flex',
+    alignItems: 'center'
   },
   rememberMeTxt: {
-    float: 'left',
-    marginLeft: 5
+    marginLeft: 10
   },
   forgotPassword: {
     clear: 'both',
@@ -56,9 +59,10 @@ const styles = {
   },
   seperator: {
     clear: 'both',
-    margin: '40px 0',
-    textAlign: 'center'
+    margin: '90px 0 50px',
+    textAlign: 'center',
+    borderBottom: `solid 1px ${ theme.colors.border }`
   }
 }
 
-export default Login;
+export default Radium(Login);

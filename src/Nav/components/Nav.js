@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import theme from '../../theme.js';
-
+import Radium from 'radium';
 import ProfileIcon from '../../components/icons/Profile.js';
+import ShutDown from '../../components/icons/ShutDown.js';
 
-export default ({
+const StyledLink = Radium(Link);
+
+const Nav = ({
   session,
   actions
 }) => (
@@ -16,22 +19,25 @@ export default ({
       session.authenticated ?
       (
         <div style={ styles.session }>
+          <StyledLink style={ styles.schedule } to="/schedule">Schedule</StyledLink>
           <div style={{ marginTop: 7 }}>
           {
             session.user.profile ?
-            <img src={ session.user.profile } alt="Profile Image" style={ styles.profile }/> :
+            <img src={ session.user.profile } alt="" style={ styles.profile }/> :
             <ProfileIcon fill="white" width="35" height="35"/>
           }
           </div>
-          <button style={ styles.link } onClick={ e => {
+          <span onClick={ e => {
             e.preventDefault();
             actions.logout();
-          }}>Logout</button>
+          }}>
+            <ShutDown fill="#fff" width={ 36 } customStyles={ styles.logout }/>
+          </span>
         </div>
       ) : (
         <div style={ styles.session }>
-          <Link style={ styles.link } to="/login">Login</Link>
-          <Link style={ styles.link } to="/signup">Signup</Link>
+          <StyledLink style={ styles.link } to="/login">Login</StyledLink>
+          <StyledLink style={ styles.link } to="/signup">Signup</StyledLink>
         </div>
       )
     }
@@ -49,24 +55,41 @@ const styles = {
     height: 50,
     width: 50
   },
+  schedule: {
+    ...theme.btn,
+    margin: '0 20px',
+    padding: '14px 25px',
+    fontSize: 16
+  },
   session: {
-    width: 140,
     paddingRight: 20,
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    alignContent: 'center'
+    alignItems: 'center',
   },
   link: {
+    ...theme.btn,
+    minHeight: 40,
+    margin: '0 5px',
     color: '#fff',
     lineHeight: 3,
-    fontSize: 15,
+    fontSize: 12,
     textDecoration: 'none',
     background: 'none',
-    border: 'none',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    [theme.media.tabletAndAbove]: {
+      fontSize: 16,
+      margin: '0 10px'
+    }
   },
   profile: {
     borderRadius: '100%'
+  },
+  logout: {
+    marginTop: 3,
+    marginLeft: 15
   }
 }
+
+export default Radium(Nav);

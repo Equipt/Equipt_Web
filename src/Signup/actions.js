@@ -27,6 +27,11 @@ export const signup = () => async(dispatch, getState, { api, history }) => {
 
 }
 
+export const agreeToTerms = () => ({
+    type: types['@SIGNUP/AGREE_TO_TERMS'],
+    payload: true
+});
+
 export const _bindOnChange = (field, value) => async(dispatch) => {
 
   await dispatch(alertActions.clearAlert());

@@ -9,8 +9,12 @@ const variables = {
     },
     info: {
       background: '#D9ECDB',
-      color: '#CAE4CD'
+      color: '#5C9059'
     }
+  },
+  media: {
+    tabletAndAbove: '@media screen and (min-width: 767px)',
+    desktopAndAbove: '@media screen and (min-width: 1200px)'
   }
 }
 
@@ -24,7 +28,9 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    padding: '0 15px',
+    lineHeight: 3
   },
   form: {
     wrapper: {
@@ -33,12 +39,16 @@ const styles = {
     }
   },
   btn: {
-    padding: '15px 25px',
+    minHeight: 50,
+    padding: '0 25px',
     color: '#fff',
-    fontSize: '15px',
+    fontSize: '18px',
     background: variables.colors.primary,
     border: '1px solid #fff',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    textDecoration: 'none',
+    outline: 'none',
+    borderRadius: 5
   },
   checkbox: {
     padding: '5px',

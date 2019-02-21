@@ -1,5 +1,6 @@
 import types from './types.js';
 import { sessionService } from 'redux-react-session';
+import cookies from 'browser-cookies';
 
 import * as alertActions from '../Alert/actions.js';
 
@@ -46,6 +47,17 @@ export const facebookLogin = res => async(dispatch, getState, { api, history }) 
   }
 
 }
+
+export const toggleRememberMe = () => (dispatch, getState) => {
+
+  const rememberMe = cookies.get('remember_me');
+
+  dispatch({
+    type: types.TOGGLE_REMEMBER_ME,
+    payload: !rememberMe
+  });
+
+};
 
 export const _bindOnChange = (field, value) => async(dispatch) => {
 

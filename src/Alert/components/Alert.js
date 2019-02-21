@@ -3,19 +3,18 @@ import theme from '../../theme.js';
 import withStyles from '../../hocs/withStyles.js';
 import CloseIcon from '../../components/icons/Close.js';
 
+const colors = theme.colors;
+
 const Alert = ({
   alert,
   actions,
-  styles: {
-    wrapper,
-    close
-  }
+  styles
 }) => alert ? (
-  <section style={ wrapper }>
+  <section style={ styles.wrapper }>
     { alert.error || alert.info }
-    <span onClick={ () => actions.clearAlert() }>
-      <CloseIcon customStyles={ close }/>
-    </span>
+    <div style={ styles.close } onClick={ () => actions.clearAlert() }>
+      <CloseIcon fill={ alert.error ? colors.error.color : colors.info.color  } width={ 15 }/>
+    </div>
   </section>
 ) : null;
 
@@ -31,15 +30,15 @@ const styles = ({
     padding: 10,
     fontSize: 15,
     lineHeight: 1.8,
-    background: alert && alert.error ? theme.colors.error.background : theme.colors.info.background,
-    color: alert && alert.error ? theme.colors.error.color : theme.colors.info.color
+    color: alert && alert.error ? colors.error.color : colors.info.color,
+    border: `solid 1px ${ alert && alert.error ? colors.error.color : colors.info.color }`,
+    zIndex: 1
   },
   close: {
-    svg: {
-      fill: theme.colors.error.color,
-      marginTop: 2,
-      float: 'right'
-    }
+    position: 'absolute',
+    top: 2,
+    right: 7,
+    cursor: 'pointer'
   }
 });
 

@@ -2,7 +2,8 @@ import types from './types.js';
 
 const defaultState = {
   email: '',
-  password: ''
+  password: '',
+  rememberMe: false
 }
 
 export default (state = defaultState, { type, payload }) => {
@@ -10,7 +11,9 @@ export default (state = defaultState, { type, payload }) => {
     case types['@LOGIN/ON_CHANGE']:
       return { ...state, ...payload };
     case types['@LOGIN/HAS_ERRORS']:
-      return { ...state, errors: payload }
+      return { ...state, errors: payload };
+    case types['TOGGLE_REMEMBER_ME']:
+      return { ...state, rememberMe: payload };
     default:
       return state;
   }

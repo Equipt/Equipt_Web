@@ -5,6 +5,7 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import algoliasearch from 'algoliasearch';
 import { sessionService } from 'redux-react-session';
 import thunk from 'redux-thunk';
+import { StyleRoot } from 'radium';
 import Api from './Api.js';
 import './App.css';
 
@@ -23,7 +24,7 @@ const algoliaClient = algoliasearch(
   process.env.REACT_APP_AGOLIA_SEARCH_ONLY_KEY
 );
 
-const algolia = algoliaClient.initIndex(`SportingGood_${ process.env.NODE_ENV }`);
+const algolia = algoliaClient.initIndex(`SportingGood_development`);
 
 const thunkMiddleware = thunk.withExtraArgument({ api, history, algolia });
 
@@ -53,7 +54,9 @@ class App extends Component {
 
     return loaded ? (
       <Provider store={ store }>
-        <Router history={ history } store={ store }/>
+        <StyleRoot>
+          <Router history={ history } store={ store }/>
+        </StyleRoot>
       </Provider>
     ) : null
 

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import theme from '../../../theme.js';
+import Radium from 'radium';
 
 import Tile from './Tile';
 import Filter from './Filter';
+import Loading from './../../../Loading';
 
-export default class Wrapper extends Component {
+class Wrapper extends Component {
 
   componentDidMount() {
     this.props.actions.fetchSportingGoods();
@@ -13,18 +15,20 @@ export default class Wrapper extends Component {
   render() {
 
     const { sportingGoods, loading } = this.props;
-    const { results, total } = sportingGoods;
-
-    if (loading) {
-      return null;
-    }
+    const { results } = sportingGoods;
 
     return (
-      <section style={ theme.container }>
+      <section style={{ ...theme.container, ...styles.container }}>
         <Filter { ...this.props }/>
-        <div style={ styles.tiles }>
-          { results.map(sportingGood => <Tile { ...sportingGood } key={ `tile_${ sportingGood.slug }` }/>) }
-        </div>
+        {
+          loading ? (
+            <Loading/>
+          ) : (
+            <div style={ styles.tiles }>
+              { results.map(sportingGood => <Tile { ...sportingGood } key={ `tile_${ sportingGood.slug }` }/>) }
+            </div>
+          )
+        }
       </section>
     );
 
@@ -33,9 +37,16 @@ export default class Wrapper extends Component {
 }
 
 const styles = {
+  container: {
+    height: '100%'
+  },
   tiles: {
     display: 'flex',
     flexWrap: 'wrap',
+    width: '100%',
+    justifyContent: 'space-between',
     marginTop: 40
   }
 }
+
+export default Radium(Wrapper);

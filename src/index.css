@@ -17,3 +17,31 @@ html, html * {
   box-sizing:border-box;
   color: #484848
 }
+
+h1, h2, h3, h4, h5, p {
+  line-height: 1;
+}
+
+.geosuggest__input {
+  min-width: 100%;
+}
+
+.geosuggest__suggests {
+  z-index: 1;
+}
+
+.geosuggest__suggests--hidden {
+  display: none;
+}
+
+.geosuggest__item:hover, .geosuggest__item--active {
+  background: #EBEBEB;
+}
+
+.kep-login-facebook {
+  width: 100%;
+  padding: 15px 0 !important;
+  text-transform: capitalize;
+  font-weight: 400 !important;
+  border-radius: 5px !important;
+}

@@ -3,6 +3,8 @@ import { bindActionCreators } from 'redux';
 
 import * as actions from './actions.js';
 
+import './styles.scss';
+
 import Wrapper from './components/Wrapper';
 
 const mapState = ({ sportingGoods, loading }) => ({

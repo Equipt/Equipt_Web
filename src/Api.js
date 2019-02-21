@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { sessionService } from 'redux-react-session';
 
 export default class Api {
 

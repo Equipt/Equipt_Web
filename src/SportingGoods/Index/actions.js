@@ -1,49 +1,57 @@
 import types from './types.js';
 import * as loadingActions from '../../Loading/actions.js';
 
-export const fetchSportingGoods = () => async(dispatch, getState, { api }) => {
+export const fetchSportingGoods = ({
+  keyword = '',
+  location = {},
+  distance = 5,
+  page = 0
+} = {}) =>
+  async(dispatch, getState, { api, algolia, history }) => {
 
-  dispatch(loadingActions.showLoader(true));
+  const { session } = getState();
 
-  const sportingGoods = await api.get('/sporting_goods');
+	const userId = session.user.id;
+	const pathname = history.location.pathname;
+  const wantsOwned = pathname.indexOf('/owner') > -1;
+
+  const params = {
+    query: keyword,
+    filters: wantsOwned ? `user_id = ${ userId }` : `user_id != ${ userId }`
+  };
+
+  // Set pagination if no search
+  // if (!keyword.length && !location) {
+  //   params.hitsPerPage = perPage;
+  //   params.page = page;
+  // }
+
+  if (location && location.lat && location.lng) {
+    params.aroundLatLng =  `${ location.lat }, ${ location.lng }`;
+    params.aroundRadius = distance * 1000;
+  }
+
+  if (!keyword && !location) dispatch(loadingActions.showLoader(true));
+
+  const { hits, nbHits, hitsPerPage } = await algolia.search(params);
 
   await dispatch({
     type: types.SET_SPORTING_GOODS,
-    payload: sportingGoods
+    payload: {
+      keyword,
+      location,
+      distance,
+      results: hits,
+      total: nbHits,
+      totalPerPage: hitsPerPage,
+      page
+    }
   })
 
-  await dispatch(loadingActions.showLoader(false));
+  dispatch(loadingActions.showLoader(false));
 
 }
 
 export const changedPlace = place => async(dispatch, getState) => {
-
-}
-
-export const changedSearch = keyword => async(dispatch, getState, { algolia }) => {
-
-  const { session } = getState();
-
-  debugger;
-
-  const params = {
-    query: keyword,
-    // filters: wantsOwned ? `user_id = ${ userId }` : `user_id != ${ userId }`
-  };
-
-  try {
-
-    const { hits, nbHits, nbPages, hitsPerPage } = await algolia.search(params);
-
-    await dispatch({
-      type: types.SET_SPORTING_GOODS,
-      payload: {
-        result: hits
-      }
-    })
-
-  } catch (err) {
-
-  }
 
 }
