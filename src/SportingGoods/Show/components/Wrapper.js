@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Info from './Info';
 import DatePicker from './DatePicker';
-import Map from './Map';
+import { Map, RadiusMarker } from '../../../components/Map';
 import Loading from '../../../Loading';
-import { Slider, Slide } from './../../../components/Slider.js';
+import { Slider, Slide } from './../../../components/Slider';
+import Ratings from './Ratings';
 import theme from '../../../theme.js';
 import withStyles from '../../../hocs/withStyles.js';
 import Radium from 'radium';
@@ -17,8 +18,8 @@ class Wrapper extends Component {
 
   render() {
 
-    const { sportingGood, loading, styles } = this.props;
-    const { title, images } = sportingGood;
+    const { sportingGood, loading, styles, actions } = this.props;
+    const { images, coordinates = {} } = sportingGood;
 
     if (loading) return <Loading/>;
 
@@ -37,12 +38,17 @@ class Wrapper extends Component {
         }
         </Slider>
         <div style={ styles.content }>
+          <div style={ styles.datePickerContainer }>
+            <DatePicker rentals={ sportingGood.rentals } onChange={ dates => actions.checkAvailability(dates) }/>
+          </div>
           <div style={ styles.leftRail }>
-            <DatePicker/>
+            <Ratings ratings={ sportingGood.ratings }/>
           </div>
           <div style={ styles.rightRail }>
-            <Info { ...sportingGood }/>
-            <Map/>
+            <Info { ...this.props }/>
+            <Map { ...coordinates }>
+              <RadiusMarker lat={ coordinates.latitude } lng={ coordinates.longitude }/>
+            </Map>
           </div>
         </div>
       </section>
@@ -63,16 +69,40 @@ const styles = () => ({
   },
   content: {
     ...theme.container,
-    flexDirection: 'row'
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    paddingTop: 30,
+    flexDirection: 'column',
+    [theme.media.desktopAndAbove]: {
+      flexWrap: 'wrap',
+      flexDirection: 'row'
+    }
+  },
+  datePickerContainer: {
+    margin: 10,
+    [theme.media.desktopAndAbove]: {
+      margin: '10px 30px',
+      flex: '1 0 100%',
+      margin: '20px 0'
+    }
   },
   leftRail: {
     padding: 10,
-    width: '60%'
+    width: '100%',
+    order: 1,
+    [theme.media.desktopAndAbove]: {
+      width: '60%',
+      order: 0,
+    }
   },
   rightRail: {
     padding: 10,
-    width: '40%'
+    width: '100%',
+    order: 0,
+    [theme.media.desktopAndAbove]: {
+      width: '40%'
+    }
   }
 });
 
-export default Radium(withStyles(Wrapper, styles));
+export default withStyles(Radium(Wrapper), styles);

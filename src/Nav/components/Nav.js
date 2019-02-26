@@ -4,6 +4,7 @@ import theme from '../../theme.js';
 import Radium from 'radium';
 import ProfileIcon from '../../components/icons/Profile.js';
 import ShutDown from '../../components/icons/ShutDown.js';
+import Profile from '../../Profile';
 
 const StyledLink = Radium(Link);
 
@@ -24,7 +25,9 @@ const Nav = ({
           {
             session.user.profile ?
             <img src={ session.user.profile } alt="" style={ styles.profile }/> :
-            <ProfileIcon fill="white" width="35" height="35"/>
+            <div onClick={ () => actions.openModal(<Profile/>) }>
+              <ProfileIcon fill="white" width="35" height="35"/>
+            </div>
           }
           </div>
           <span onClick={ e => {

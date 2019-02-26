@@ -9,6 +9,7 @@ import signup from './Signup/reducer.js';
 import schedule from './Schedule/reducer.js';
 import sportingGoods from './SportingGoods/Index/reducer.js';
 import sportingGood from './SportingGoods/Show/reducer.js';
+import rental from './Rental/Show/reducer.js';
 
 export default combineReducers({
   alert,
@@ -16,6 +17,7 @@ export default combineReducers({
   schedule,
   sportingGoods,
   sportingGood,
+  rental,
   loading,
   session: sessionReducer,
   '@form/forgot': forgot,

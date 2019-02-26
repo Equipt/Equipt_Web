@@ -3,6 +3,7 @@ import Radium from 'radium';
 import PropTypes from 'prop-types';
 import theme from '../theme.js';
 import withStyles from '../hocs/withStyles.js';
+import Chevron from './icons/Chevron';
 
 class SliderComponent extends Component {
 
@@ -30,11 +31,23 @@ class SliderComponent extends Component {
 
     return (
       <div style={ styles.slider }>
-      {
-        React.Children.map(children, (child, index) => index === currentIndex ? (
-          React.cloneElement(child, { key: `slide_${ index }` })
-        ) : null)
-      }
+
+        {
+          currentIndex > 0 ? (
+            <div style={ styles.leftArrow } onClick={ () => this.updateIndex(currentIndex - 1) }>
+              <Chevron fill={ theme.colors.primary } direction='right' customStyles={ styles.arrows }/>
+            </div>
+          ) : null
+        }
+
+        {
+          React.Children.map(children, (child, index) => index === currentIndex ? (
+            <div style={ styles.slide } key={ `slide_${ index }` }>
+              { child }
+            </div>
+          ) : null)
+        }
+
         <ul style={ styles.dots }>
         {
           children.length > 1 ? (
@@ -46,6 +59,15 @@ class SliderComponent extends Component {
           ) : null
         }
         </ul>
+
+        {
+          currentIndex < children.length - 1 ? (
+            <div style={ styles.rightArrow } onClick={ () => this.updateIndex(currentIndex + 1) }>
+              <Chevron fill={ theme.colors.primary } direction='left'/>
+            </div>
+          ) : null
+        }
+
       </div>
     )
   }
@@ -54,11 +76,11 @@ class SliderComponent extends Component {
 
 const SlideComponent = ({ children, width, customStyles }) => {
   const styles = getStyles();
-  return <div style={{ ...styles.slide, ...customStyles }}>{ children }</div>
+  return (<div style={{ ...customStyles }}>{ children }</div>);
 }
 
 SlideComponent.propTypes = {
-  children: PropTypes.array.isRequired
+  children: PropTypes.object.isRequired
 }
 
 const getStyles = () => {
@@ -71,6 +93,15 @@ const getStyles = () => {
     listStyle: 'none',
     cursor: 'pointer',
   };
+
+  const arrows = {
+    position: 'absolute',
+    width: 45,
+    height: 52,
+    top: `calc(50% - (80px / 2))`,
+    background: '#fff',
+    opacity: 0.5
+  }
 
   return {
     slider: {
@@ -97,6 +128,14 @@ const getStyles = () => {
     activeDot: {
       ...dots,
       background: theme.colors.primary
+    },
+    rightArrow: {
+      ...arrows,
+      right: 0
+    },
+    leftArrow: {
+      ...arrows,
+      left: 0
     }
   }
 

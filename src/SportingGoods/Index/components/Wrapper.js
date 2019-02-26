@@ -21,12 +21,14 @@ class Wrapper extends Component {
       <section style={{ ...theme.container, ...styles.container }}>
         <Filter { ...this.props }/>
         {
-          loading ? (
-            <Loading/>
-          ) : (
-            <div style={ styles.tiles }>
-              { results.map(sportingGood => <Tile { ...sportingGood } key={ `tile_${ sportingGood.slug }` }/>) }
-            </div>
+          loading ? <Loading/> : (
+            results.length ? (
+              <div style={ styles.tiles }>
+                { results.map(sportingGood => <Tile { ...sportingGood } key={ `tile_${ sportingGood.slug }` }/>) }
+              </div>
+            ) : (
+              <h4>Sorry, We don't have this yet!</h4>
+            )
           )
         }
       </section>

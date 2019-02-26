@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import theme from '../../theme.js';
 import { Link } from "react-router-dom";
 import Radium from 'radium';

@@ -1,42 +1,67 @@
 import React from 'react';
+import Radium from 'radium';
 import theme from '../../../theme.js';
 import StarRating from 'react-star-ratings';
+import Terms from '../../../components/Terms'
+import ProfileIcon from '../../../components/icons/Profile';
 
 const Info = ({
-  title,
-  model,
-  pricePerDay,
-  pricePerWeek,
-  overallRating,
-  totalRatings
-}) => (
-  <div style={ styles.container }>
-    <div style={ styles.reviewsContainer }>
-      <StarRating rating={ overallRating }
-                  starRatedColor={ theme.colors.primary }
-                  starDimension="20px"
-                  starSpacing="2px"/>
-      <p style={ styles.totalRatings }>{ totalRatings } Reviews</p>
+  sportingGood,
+  rental,
+  actions
+}) => {
+
+  const hasDatesSelected = rental.startDate && rental.endDate;
+
+  return (
+    <div style={ styles.container }>
+      <div style={ styles.reviewsContainer }>
+        {
+          sportingGood.user.profile ?
+          <img src={ sportingGood.user.profile } alt="" style={ styles.profile }/> :
+          <ProfileIcon fill="white" width="35" height="35"/>
+        }
+        <StarRating rating={ sportingGood.overallRating }
+                    starRatedColor={ theme.colors.primary }
+                    starDimension="20px"
+                    starSpacing="2px"/>
+        <p style={ styles.totalRatings }>{ sportingGood.totalRatings } Reviews</p>
+      </div>
+      <h3>{ sportingGood.title }</h3>
+      <h5>{ sportingGood.brand } - { sportingGood.model }</h5>
+      <h3>${ sportingGood.pricePerDay }<span style={ styles.smallText }>Per Day</span></h3>
+      <h3>${ sportingGood.pricePerWeek }<span style={ styles.smallText }>Per Week</span></h3>
+      { hasDatesSelected ? <h3>{ rental.startDate }<span style={ styles.smallText }>till</span>{ rental.endDate }</h3> : null }
+      { rental.total ? <h2>${ rental.total }</h2> : null }
+      { hasDatesSelected ? <Terms actions={ actions } isChecked={ rental.agreedToTerms } error={ rental.errors }/> : null }
+      <button style={ styles.rentBtn } disabled={ !hasDatesSelected } onClick={ () => actions.rent() }>Rent</button>
     </div>
-    <h3>{ title }</h3>
-    <h5>{ model }</h5>
-    <h3>${ pricePerDay }<span style={ styles.perText }>Per Day</span></h3>
-    <h3>${ pricePerWeek }<span style={ styles.perText }>Per Week</span></h3>
-    <button style={ styles.rentBtn }>Rent</button>
-  </div>
-);
+  )
+};
 
 const styles = {
   container: {
-    padding: 20,
-    border: `solid 1px ${ theme.colors.border }`
+    borderBottom: `solid 1px ${ theme.colors.border }`,
+    marginBottom: 30,
+    paddingBottom: 10,
+    [theme.media.tabletAndAbove]: {
+      padding: 20,
+      border: `solid 1px ${ theme.colors.border }`
+    }
   },
   reviewsContainer: {
     float: 'right',
     marginTop: 6
   },
-  perText: {
-    marginLeft: 4,
+  profile: {
+    display: 'block',
+    margin: '0 auto',
+    width: 50,
+    height: 50,
+    borderRadius: '100%'
+  },
+  smallText: {
+    margin: '0 4px',
     fontSize: 12
   },
   text: {
@@ -44,7 +69,9 @@ const styles = {
   },
   totalRatings: {
     margin: 0,
-    padding: 0
+    padding: 0,
+    textAlign: 'right',
+    fontSize: 14
   },
   rentBtn: {
     ...theme.btn,
@@ -53,4 +80,4 @@ const styles = {
   }
 };
 
-export default Info;
+export default Radium(Info);

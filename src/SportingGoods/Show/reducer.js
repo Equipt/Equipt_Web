@@ -2,7 +2,10 @@ import types from './types.js';
 
 const defaultState = {
   title: '',
-  images: []
+  images: [],
+  rentals: [],
+  ratings: [],
+  user: {}
 }
 
 export default (state = defaultState, { type, payload }) => {

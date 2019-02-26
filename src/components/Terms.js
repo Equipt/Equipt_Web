@@ -1,6 +1,10 @@
 import React from 'react';
+import theme from './../theme.js';
+import Radium from 'radium';
+import PropTypes from 'prop-types';
+import CheckBox from './icons/CheckBox';
 
-const Terms = () => (
+const TermsContent = () => (
   <div style={ styles.container }>
     <h4>End User License Agreement</h4>
     <ol style={ styles.list }>
@@ -19,7 +23,36 @@ const Terms = () => (
       <p>2.5 Equipt holds the right to delete any Users profile or denign access to any User who acts in bad faith against Equipt or any of its Users.</p>
     </ol>
   </div>
+);
+
+const Terms = ({
+  isChecked = false,
+  error,
+  actions
+}) => (
+  <div style={ styles.termsContainer } onClick={ () => {
+    actions.agreeToTerms();
+    actions._clearError && actions._clearError('terms');
+  }}>
+    <CheckBox isChecked={ isChecked }/>
+    <p style={ styles.terms }>I agree to the
+      <span style={ styles.termsLink } onClick={ e => {
+        e.preventDefault();
+        actions.openModal(<TermsContent/>);
+      }}>terms and conditions</span>
+    </p>
+  </div>
 )
+
+Terms.propTypes = {
+  isChecked: PropTypes.bool.isRequired,
+  error: PropTypes.string,
+  actions: PropTypes.shape({
+    agreeToTerms: PropTypes.func.isRequired,
+    openModal: PropTypes.func.isRequired,
+    _clearError: PropTypes.func
+  }),
+}
 
 const styles = {
   container: {
@@ -27,7 +60,21 @@ const styles = {
   },
   list: {
     padding: 0
+  },
+  termsContainer: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  terms: {
+    marginLeft: 10
+  },
+  termsLink: {
+    marginLeft: 4,
+    ':hover': {
+      cursor: 'pointer',
+      color: theme.colors.primary
+    }
   }
 }
 
-export default Terms;
+export default Radium(Terms);

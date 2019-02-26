@@ -22,16 +22,17 @@ const styles = ({
   alert
 }) => ({
   wrapper: {
-    position: 'absolute',
+    position: 'fixed',
     right: 5,
-    top: 80,
-    minWidth: 400,
+    top: 20,
+    minWidth: 440,
     height: 50,
-    padding: 10,
+    padding: '10px 40px 0 10px',
     fontSize: 15,
     lineHeight: 1.8,
     color: alert && alert.error ? colors.error.color : colors.info.color,
     border: `solid 1px ${ alert && alert.error ? colors.error.color : colors.info.color }`,
+    background: '#fff',
     zIndex: 1
   },
   close: {

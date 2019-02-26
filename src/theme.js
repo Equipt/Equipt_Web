@@ -3,6 +3,7 @@ const variables = {
     primary: '#5C9059',
     text: '#484848',
     border: '#EBEBEB',
+    disabled: '#ccc',
     error: {
       background: '#f8d7da',
       color: '#721c24'
@@ -48,7 +49,11 @@ const styles = {
     cursor: 'pointer',
     textDecoration: 'none',
     outline: 'none',
-    borderRadius: 5
+    borderRadius: 5,
+    ":disabled": {
+      background: variables.colors.disabled,
+      cursor: 'not-allowed'
+    }
   },
   checkbox: {
     padding: '5px',

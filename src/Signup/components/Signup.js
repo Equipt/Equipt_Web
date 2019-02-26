@@ -1,9 +1,8 @@
 import React from 'react';
 import Radium from 'radium';
 import theme from '../../theme.js';
-import Terms from '../../components/Terms'
 import Input from '../../components/Input.js';
-import CheckBox from '../../components/icons/CheckBox';
+import Terms from '../../components/Terms';
 
 const Signup = ({
   actions,
@@ -47,19 +46,8 @@ const Signup = ({
                canClear={ true }
                password
         />
-        <div style={ styles.termsContainer } onClick={ () => {
-          actions.agreeToTerms();
-          actions._clearError('terms');
-        }}>
-          <CheckBox isChecked={ form.terms }/>
-          <p style={ styles.terms }>I agree to the
-            <span style={ styles.termsLink } onClick={ e => {
-              e.preventDefault();
-              actions.openModal(<Terms/>);
-            }}>terms and conditions</span>
-            { form.errors.terms ? <span style={ styles.error }>{ form.errors.terms }</span> : null }
-          </p>
-        </div>
+        <Terms actions={ actions } isChecked={ form.terms }/>
+        { form.errors.terms ? <span style={ styles.error }>{ form.errors.terms }</span> : null }
         <button style={{ ...theme.btn, ...styles.signupBtn }} type="submit">Signup</button>
       </form>
     </div>
@@ -71,22 +59,9 @@ const styles = {
     marginTop: 30,
     width: '100%'
   },
-  termsContainer: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  terms: {
-    marginLeft: 10
-  },
-  termsLink: {
-    marginLeft: 4,
-    ':hover': {
-      cursor: 'pointer',
-      color: theme.colors.primary
-    }
-  },
   error: {
-    marginLeft: 15,
+    float: 'right',
+    marginTop: -38,
     fontSize: 10,
     color: theme.colors.error.color
   }

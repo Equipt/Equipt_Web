@@ -1,0 +1,4 @@
+export default {
+  SET_RENTAL: 'SET_RENTAL',
+  AGREE_TO_RENTAL_TERMS: 'AGREE_TO_RENTAL_TERMS'
+}
