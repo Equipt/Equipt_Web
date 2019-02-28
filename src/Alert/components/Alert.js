@@ -33,7 +33,7 @@ const styles = ({
     color: alert && alert.error ? colors.error.color : colors.info.color,
     border: `solid 1px ${ alert && alert.error ? colors.error.color : colors.info.color }`,
     background: '#fff',
-    zIndex: 1
+    zIndex: 10000
   },
   close: {
     position: 'absolute',

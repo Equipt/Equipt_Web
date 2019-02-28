@@ -27,9 +27,9 @@ class Wrapper extends Component {
       <section>
         <Slider>
         {
-          images.map(({ file }) => (
+          images.map(({ file }, index) => (
             <Slide customStyles={ styles.slide }>
-              <div style={{
+              <div key={ `slide_${index}` } style={{
                 ...styles.image,
                 backgroundImage: `url(${process.env.REACT_APP_SERVER_DOMAIN}${file.url})`
               }}/>
@@ -81,7 +81,6 @@ const styles = () => ({
   datePickerContainer: {
     margin: 10,
     [theme.media.desktopAndAbove]: {
-      margin: '10px 30px',
       flex: '1 0 100%',
       margin: '20px 0'
     }

@@ -6,6 +6,7 @@
     "algoliasearch": "^3.32.0",
     "axios": "^0.18.0",
     "browser-cookies": "^1.2.0",
+    "country-state-city": "^0.1.0",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.9.1",
     "google-map-react": "^1.1.2",

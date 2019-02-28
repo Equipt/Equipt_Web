@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from './actions.js';
 
-import Profile from './components/Profile';
+import Wrapper from './components/Wrapper';
 
 const mapState = (state) => ({
   form: state['@form/profile'],
@@ -15,4 +15,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(Profile);
+export default connect(mapState, mapDispatch)(Wrapper);

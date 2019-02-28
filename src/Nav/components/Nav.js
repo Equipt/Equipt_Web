@@ -21,11 +21,11 @@ const Nav = ({
       (
         <div style={ styles.session }>
           <StyledLink style={ styles.schedule } to="/schedule">Schedule</StyledLink>
-          <div style={{ marginTop: 7 }}>
+          <div style={{ marginTop: 7 }} onClick={ () => actions.openModal(<Profile/>) }>
           {
             session.user.profile ?
             <img src={ session.user.profile } alt="" style={ styles.profile }/> :
-            <div onClick={ () => actions.openModal(<Profile/>) }>
+            <div>
               <ProfileIcon fill="white" width="35" height="35"/>
             </div>
           }

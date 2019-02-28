@@ -2366,6 +2366,10 @@ cosmiconfig@^5.0.0, cosmiconfig@^5.0.5, cosmiconfig@^5.0.6:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
+country-state-city@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/country-state-city/-/country-state-city-0.1.0.tgz#eee3b9329bcdbf509a98619c9edb72eb618fe8f9"
+
 create-ecdh@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/create-ecdh/-/create-ecdh-4.0.3.tgz#c9111b6f33045c4697f144787f9254cdc77c45ff"

@@ -1,4 +1,5 @@
 import React from 'react';
+import Radium from 'radium';
 import PropTypes from 'prop-types';
 import theme from '../../theme.js';
 import Close from '../../components/icons/Close';
@@ -44,8 +45,12 @@ const styles = {
   container: {
     position: 'absolute',
     padding: 35,
-    width: '80%',
-    height: '90%',
+    width: '100%',
+    height: '100%',
+    [theme.media.tabletAndAbove]: {
+      width: '80%',
+      height: '90%'
+    },
     top: 0,
     bottom: 0,
     right: 0,
@@ -76,4 +81,4 @@ Modal.propTypes = {
   })
 };
 
-export default Modal;
+export default Radium(Modal);

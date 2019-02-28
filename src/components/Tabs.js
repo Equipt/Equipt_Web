@@ -22,7 +22,7 @@ class TabsComponent extends Component {
     const { currentIndex } = this.state;
 
     return (
-      <div style={ styles.container }>
+      <div>
         <ul style={ styles.tabs }>
         {
           React.Children.map(children, (child, index) => {
@@ -62,19 +62,23 @@ const TabComponent = ({
 );
 
 const styles = {
-  container: {
-
-  },
   tabs: {
     display: 'flex',
     justifyContent: 'space-between',
-    maxWidth: 500
+    padding: 0,
+    [theme.media.tabletAndAbove]: {
+      maxWidth: 500
+    }
   },
   currentTab: {
     borderBottom: `solid 2px ${ theme.colors.primary }`
   },
   tab: {
-    listStyle: 'none'
+    listStyle: 'none',
+    fontSize: 14,
+    [theme.media.tabletAndAbove]: {
+      fontSize: 16
+    }
   }
 }
 

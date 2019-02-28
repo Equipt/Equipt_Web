@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Radium from 'radium';
 import PropTypes from 'prop-types';
 import theme from '../theme.js';
-import withStyles from '../hocs/withStyles.js';
 import Chevron from './icons/Chevron';
 
 class SliderComponent extends Component {
@@ -41,11 +40,7 @@ class SliderComponent extends Component {
         }
 
         {
-          React.Children.map(children, (child, index) => index === currentIndex ? (
-            <div style={ styles.slide } key={ `slide_${ index }` }>
-              { child }
-            </div>
-          ) : null)
+          React.Children.map(children, (child, index) => index === currentIndex ? child : null)
         }
 
         <ul style={ styles.dots }>
@@ -53,7 +48,7 @@ class SliderComponent extends Component {
           children.length > 1 ? (
             React.Children.map(children, (child, index) => (
               <li style={ index === currentIndex ? styles.activeDot : styles.dot }
-                  key={ `dot_${ index }`}
+                  key={ `dot_${ index }` }
                   onClick={ () => this.updateIndex(index) }/>
             ))
           ) : null
@@ -74,10 +69,7 @@ class SliderComponent extends Component {
 
 }
 
-const SlideComponent = ({ children, width, customStyles }) => {
-  const styles = getStyles();
-  return (<div style={{ ...customStyles }}>{ children }</div>);
-}
+const SlideComponent = ({ children, width, customStyles }) => children;
 
 SlideComponent.propTypes = {
   children: PropTypes.object.isRequired
@@ -142,4 +134,4 @@ const getStyles = () => {
 }
 
 export const Slider = Radium(SliderComponent);
-export const Slide = Radium(SlideComponent);
+export const Slide = SlideComponent;

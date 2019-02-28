@@ -4,6 +4,7 @@ import alert from './Alert/reducer.js';
 import forgot from './Forgot/reducer.js';
 import login from './Login/reducer.js';
 import loading from './Loading/reducer.js';
+import profile from './Profile/reducer.js';
 import modal from './Modal/reducer.js';
 import signup from './Signup/reducer.js';
 import schedule from './Schedule/reducer.js';
@@ -22,5 +23,6 @@ export default combineReducers({
   session: sessionReducer,
   '@form/forgot': forgot,
   '@form/login': login,
-  '@form/signup': signup
+  '@form/signup': signup,
+  '@form/profile': profile
 });

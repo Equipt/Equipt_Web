@@ -85,7 +85,8 @@ const styles = {
   placeholder: {
     marginRight: 10,
     fontSize: 15,
-    color: '#757575'
+    color: '#757575',
+    lineHeight: 3
   },
   dropDown: {
     position: 'absolute',
@@ -94,7 +95,10 @@ const styles = {
     top: 33,
     left: -1,
     border: `solid 1px ${ theme.colors.border }`,
-    background: '#fff'
+    background: '#fff',
+    maxHeight: 300,
+    overflow: 'scroll',
+    zIndex: 100
   },
   option: {
     listStyle: 'none',

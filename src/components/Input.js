@@ -20,7 +20,7 @@ const Input = ({
   <div style={{ ...styles.container, ...customStyles }}>
     <input onChange={ (e) => onChange(e.target.value) }
            placeholder={ placeholder }
-           value={ value }
+           defaultValue={ value }
            style={ styles.input }
            type={ password ? 'password' : 'text' }
            autoComplete="off"

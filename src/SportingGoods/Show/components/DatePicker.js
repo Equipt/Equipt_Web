@@ -21,7 +21,7 @@ class DatePicker extends Component {
     this.state = {
       startDate: null,
       endDate: null,
-      focusedInput: 'null'
+      focusedInput: null
     }
   }
 
