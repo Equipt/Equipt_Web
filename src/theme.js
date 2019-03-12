@@ -5,11 +5,11 @@ const variables = {
     border: '#EBEBEB',
     disabled: '#ccc',
     error: {
-      background: '#f8d7da',
+      border: '#f8d7da',
       color: '#721c24'
     },
     info: {
-      background: '#D9ECDB',
+      border: '#D9ECDB',
       color: '#5C9059'
     }
   },
@@ -58,6 +58,11 @@ const styles = {
   checkbox: {
     padding: '5px',
     border: 'solid 1px #EBEBEB'
+  },
+  break: {
+    width: '100%',
+    margin: '20px 0',
+    border: `solid 1px ${ variables.colors.border }`
   }
 }
 

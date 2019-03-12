@@ -49,7 +49,7 @@ const styles = ({
     width: '100%',
     padding: '15px 25px',
     fontSize: '15px',
-    border: `solid 1px ${ errors.length ? theme.colors.error.background : theme.colors.border }`,
+    border: `solid 1px ${ errors.length ? theme.colors.error.border : theme.colors.border }`,
     outline: 0,
     zIndex: 0
   },

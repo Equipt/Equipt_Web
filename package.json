@@ -21,6 +21,7 @@
     "react-geosuggest": "^2.10.0",
     "react-icons-kit": "^1.2.1",
     "react-images-upload": "^1.2.6",
+    "react-pin-input": "^0.8.0",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.3",

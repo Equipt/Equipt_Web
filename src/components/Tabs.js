@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Radium from 'radium';
+import Check from './icons/Check.js';
 import theme from '../theme.js';
 
 class TabsComponent extends Component {
@@ -27,13 +28,21 @@ class TabsComponent extends Component {
         {
           React.Children.map(children, (child, index) => {
 
-            const tabStyles = currentIndex === index ? styles.currentTab : {};
+            const styles = getTabStyles({
+              ...child.props,
+              isCurrentTab: currentIndex === index
+            });
 
             return (
               <li key={ `tab_${ index }` }
                 onClick={ () => this.updateIndex(index) }
-                style={{ ...styles.tab, ...tabStyles }}>
+                style={ styles }>
                 { child.props.title }
+                {
+                  child.props.checked ?
+                  <Check style={ checkStyles } width={ 20 } height={ 20 }/> :
+                  null
+                }
               </li>
             )
           })
@@ -66,21 +75,29 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     padding: 0,
+    cursor: 'pointer',
     [theme.media.tabletAndAbove]: {
       maxWidth: 500
     }
-  },
-  currentTab: {
-    borderBottom: `solid 2px ${ theme.colors.primary }`
-  },
-  tab: {
-    listStyle: 'none',
-    fontSize: 14,
-    [theme.media.tabletAndAbove]: {
-      fontSize: 16
-    }
   }
 }
+
+const checkStyles = {
+  display: 'inline-block',
+  margin: '0 0 0 3px',
+  verticalAlign: 'text-bottom'
+}
+
+const getTabStyles = ({
+  isCurrentTab
+}) => ({
+  listStyle: 'none',
+  fontSize: 14,
+  borderBottom: isCurrentTab ? `solid 2px ${ theme.colors.primary }` : '  ',
+  [theme.media.tabletAndAbove]: {
+    fontSize: 16
+  }
+});
 
 export const Tabs = Radium(TabsComponent);
 export const Tab = Radium(TabComponent);

@@ -33,8 +33,11 @@ export default (state = defaultState, { type, payload }, root) => {
         }
       }, state);
       return { ...state };
-    case types['@PROFILE/HAS_ERRORS']:
+    case types['@PROFILE/SET_ERRORS']:
       return { ...state, errors: payload };
+    case types['@PROFILE/CLEAR_ERROR']:
+      delete state.errors[ payload.field ];
+      return { ...state }
     default:
       return state;
   }

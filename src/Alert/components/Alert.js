@@ -24,14 +24,14 @@ const styles = ({
   wrapper: {
     position: 'fixed',
     right: 5,
-    top: 20,
+    top: 90,
     minWidth: 440,
     height: 50,
     padding: '10px 40px 0 10px',
     fontSize: 15,
     lineHeight: 1.8,
     color: alert && alert.error ? colors.error.color : colors.info.color,
-    border: `solid 1px ${ alert && alert.error ? colors.error.color : colors.info.color }`,
+    border: `solid 1px ${ alert && alert.error ? colors.error.border : colors.info.bo }`,
     background: '#fff',
     zIndex: 10000
   },

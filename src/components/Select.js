@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Radium from 'radium';
+import withStyles from '../hocs/withStyles.js'
 
 import theme from '../theme.js';
 
@@ -17,7 +18,16 @@ class SelectTag extends Component {
 
   render() {
 
-    const { placeholder, customStyles, onSelect, children, value = null } = this.props;
+    const {
+      placeholder,
+      customStyles,
+      styles,
+      onSelect,
+      children,
+      value = null,
+      errors = []
+    } = this.props;
+
     const { isOpen } = this.state;
 
     return (
@@ -25,6 +35,7 @@ class SelectTag extends Component {
            onMouseEnter={ () => this.setState({ isOpen: true }) }
            onMouseLeave={ () => this.setState({ isOpen: false }) }>
         <span style={ styles.placeholder }>{ value ? value : placeholder }</span>
+        <span style={ styles.error }>{ errors.length ? errors.join(', ') : '' }</span>
         <Chevron width="20" height="20" fill={ theme.colors.border } customStyles={ styles.chevron }/>
         { isOpen ? (
             <ul style={ styles.dropDown }>
@@ -47,12 +58,14 @@ SelectTag.propTypes = {
   children: PropTypes.array.isRequired,
   customStyles: PropTypes.object,
   onSelect: PropTypes.func.isRequired,
-  value: PropTypes.string
+  value: PropTypes.string,
+  errors: PropTypes.array
 }
 
 const OptionTag = ({
   children,
   onSelect,
+  styles,
   closeDropDown,
   value
 }) => (
@@ -70,7 +83,9 @@ OptionTag.propTypes = {
   value: PropTypes.string.isRequired
 }
 
-const styles = {
+const styles = ({
+  errors = []
+}) => ({
   select: {
     display: 'flex',
     position: 'relative',
@@ -79,8 +94,15 @@ const styles = {
     margin: '20px 0',
     padding: '2px 25px',
     fontSize: '15px',
-    border: `solid 1px ${ theme.colors.border }`,
+    border: `solid 1px ${ errors.length ? theme.colors.error.border : theme.colors.border }`,
     outline: 0
+  },
+  error: {
+    position: 'absolute',
+    bottom: 5,
+    right: 4,
+    fontSize: 10,
+    color: theme.colors.error.color
   },
   placeholder: {
     marginRight: 10,
@@ -111,8 +133,8 @@ const styles = {
   chevron: {
     marginTop: 10
   }
-}
+});
 
 
-export const Select = Radium(SelectTag);
-export const Option = Radium(OptionTag);
+export const Select = withStyles(Radium(SelectTag), styles);
+export const Option = withStyles(Radium(OptionTag), styles);
