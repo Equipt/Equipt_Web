@@ -9,7 +9,7 @@ const Verification = ({
   <section style={ styles.wrapper }>
   {
     user.isVerified ? (
-      <p style={ styles.isVerified }>You are already verified</p>
+      <p style={ styles.verified }>You are now verified!!</p>
     ) : (
       <PinInput
         length={ 4 }
@@ -26,6 +26,7 @@ const styles = {
   wrapper: {
     display: 'flex',
     justifyContent: 'center',
+    verticallyAlign: 'middle',
     marginTop: 60
   },
   input: {
@@ -34,6 +35,10 @@ const styles = {
     fontSize: 18,
     margin: '0 15px',
     border: `solid 1px ${ theme.colors.primary }`
+  },
+  verified: {
+    fontSize: 20,
+    color: theme.colors.primary
   }
 }
 

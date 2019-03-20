@@ -12,17 +12,19 @@ const defaultState = {
     number: null,
     street: null,
     city: null,
-    state: null,
+    state: '',
     country: 'CA',
     zip: null
-  }
+  },
+  currentTab: 'basic',
+  isLoading: false
 }
 
 export default (state = defaultState, { type, payload }, root) => {
 
   switch(type) {
     case types['@PROFILE/SET_INITIAL_STATE']:
-      return payload;
+      return { ...payload, currentTab: 'basic' };
     case types['@PROFILE/ON_CHANGE']:
       const field = Object.keys(payload)[0];
       field.split('.').reduce((arr, value) => {
@@ -37,7 +39,11 @@ export default (state = defaultState, { type, payload }, root) => {
       return { ...state, errors: payload };
     case types['@PROFILE/CLEAR_ERROR']:
       delete state.errors[ payload.field ];
-      return { ...state }
+      return { ...state };
+    case types['@PROFILE/CHANGE_TAB']:
+      return { ...state, currentTab: payload };
+    case types['@PROFILE/IS_LOADING']:
+      return { ...state, isLoading: payload };
     default:
       return state;
   }

@@ -15,14 +15,16 @@ const Input = ({
   password,
   errors = [],
   styles = {},
+  type = 'text',
   canClear = false
 }) => (
   <div style={{ ...styles.container, ...customStyles }}>
     <input onChange={ (e) => onChange(e.target.value) }
+           type={ type }
            placeholder={ placeholder }
            defaultValue={ value }
            style={ styles.input }
-           type={ password ? 'password' : 'text' }
+           type={ type }
            autoComplete="off"
     />
     {
@@ -39,19 +41,13 @@ const Input = ({
 const styles = ({
   errors = []
 }) => ({
+  input: {
+    ...theme.input,
+    border: `solid 1px ${ errors.length ? theme.colors.error.border : theme.colors.border }`
+  },
   container: {
     position: 'relative',
     margin: '20px 0',
-  },
-  input: {
-    position: 'relative',
-    display: 'block',
-    width: '100%',
-    padding: '15px 25px',
-    fontSize: '15px',
-    border: `solid 1px ${ errors.length ? theme.colors.error.border : theme.colors.border }`,
-    outline: 0,
-    zIndex: 0
   },
   error: {
     position: 'absolute',

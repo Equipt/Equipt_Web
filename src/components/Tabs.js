@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Radium from 'radium';
 import Check from './icons/Check.js';
 import theme from '../theme.js';
@@ -8,34 +9,40 @@ class TabsComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentIndex: 0
+      currentTab: props.currentTab
     }
-    this.updateIndex = this.updateIndex.bind(this);
+    this.updateTab = this.updateTab.bind(this);
   }
 
-  updateIndex(index) {
-    this.setState({ currentIndex: index });
+  componentWillReceiveProps(props) {
+    this.setState(props);
+  }
+
+  updateTab(currentTab) {
+    const { onChange } = this.props;
+    if (onChange) onChange(currentTab);
+    this.setState({ currentTab });
   }
 
   render() {
 
-    const { children } = this.props;
-    const { currentIndex } = this.state;
+    const { children, defaultTab, customStyles = {} } = this.props;
+    const { currentTab } = this.state;
 
     return (
       <div>
-        <ul style={ styles.tabs }>
+        <ul style={{ ...customStyles, ...styles.tabs }}>
         {
           React.Children.map(children, (child, index) => {
 
             const styles = getTabStyles({
               ...child.props,
-              isCurrentTab: currentIndex === index
+              isCurrentTab: currentTab === child.props.name
             });
 
             return (
               <li key={ `tab_${ index }` }
-                onClick={ () => this.updateIndex(index) }
+                onClick={ () => this.updateTab(child.props.name) }
                 style={ styles }>
                 { child.props.title }
                 {
@@ -50,10 +57,9 @@ class TabsComponent extends Component {
         </ul>
         {
           React.Children.map(children, (child, index) =>
-            currentIndex === index ?
+            currentTab === child.props.name ?
             React.cloneElement(child, { moveToTab: this.updateIndex })
-            : null
-          )
+            : null)
         }
       </div>
     )
@@ -69,6 +75,12 @@ const TabComponent = ({
     { React.cloneElement(children, { moveToTab }) }
   </div>
 );
+
+TabComponent.propTypes = {
+  title: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  checked: PropTypes.bool
+}
 
 const styles = {
   tabs: {

@@ -12,8 +12,24 @@ class SelectTag extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      filter: ''
     }
+  }
+
+  componentWillReceiveProps() {
+
+  }
+
+  filterResults() {
+    const { children, onSelect } = this.props;
+    const { filter } = this.state;
+
+    return React.Children.map(children, child => {
+      return child.props.children.toLowerCase().indexOf(filter.toLowerCase()) > -1 ?
+        React.cloneElement(child, { onSelect, closeDropDown: () => this.setState({ isOpen: false }) }) :
+        null
+    })
   }
 
   render() {
@@ -22,28 +38,33 @@ class SelectTag extends Component {
       placeholder,
       customStyles,
       styles,
-      onSelect,
       children,
       value = null,
       errors = []
     } = this.props;
 
-    const { isOpen } = this.state;
+    const { isOpen, filter } = this.state;
 
     return (
       <div style={{ ...styles.select, ...customStyles }}
            onMouseEnter={ () => this.setState({ isOpen: true }) }
            onMouseLeave={ () => this.setState({ isOpen: false }) }>
-        <span style={ styles.placeholder }>{ value ? value : placeholder }</span>
-        <span style={ styles.error }>{ errors.length ? errors.join(', ') : '' }</span>
-        <Chevron width="20" height="20" fill={ theme.colors.border } customStyles={ styles.chevron }/>
-        { isOpen ? (
+        <input style={ styles.placeholder }
+               placholder={ placeholder }
+               // onChange={ e => this.setState({
+               //   filter: e.target.value,
+               //   isOpen: true
+               // })}
+               value={ filter || value }/>
+        <span  style={ styles.error }>{ errors.length ? errors.join(', ') : '' }</span>
+        <Chevron width="20"
+                 height="20"
+                 fill={ theme.colors.border }
+                 customStyles={ styles.chevron }/>
+        {
+          isOpen ? (
             <ul style={ styles.dropDown }>
-            {
-              React.Children.map(children, child =>
-                React.cloneElement(child, { onSelect, closeDropDown: () => this.setState({ isOpen: false }) })
-              )
-            }
+              { this.filterResults() }
             </ul>
           ) : null
         }
@@ -92,7 +113,6 @@ const styles = ({
     justifyContent: 'space-between',
     width: '100%',
     margin: '20px 0',
-    padding: '2px 25px',
     fontSize: '15px',
     border: `solid 1px ${ errors.length ? theme.colors.error.border : theme.colors.border }`,
     outline: 0
@@ -105,14 +125,18 @@ const styles = ({
     color: theme.colors.error.color
   },
   placeholder: {
+    width: '100%',
     marginRight: 10,
     fontSize: 15,
+    padding: '2px 10px',
     color: '#757575',
-    lineHeight: 3
+    lineHeight: 3,
+    border: 'none',
+    outline: 0
   },
   dropDown: {
     position: 'absolute',
-    width: '101%',
+    width: '100.5%',
     padding: 0,
     top: 33,
     left: -1,
@@ -131,7 +155,8 @@ const styles = ({
     }
   },
   chevron: {
-    marginTop: 10
+    marginTop: 15,
+    marginRight: 15
   }
 });
 

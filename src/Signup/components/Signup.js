@@ -37,14 +37,14 @@ const Signup = ({
                value={ form.password }
                errors={ form.errors.password }
                canClear={ true }
-               password
+               type="password"
         />
         <Input placeholder="Password Confirmation"
                onChange={ value => actions._bindOnChange('passwordConfirmation', value) }
                value={ form.passwordConfirmation }
                errors={ form.errors.password_confirmation }
                canClear={ true }
-               password
+               type="password"
         />
         <Terms actions={ actions } isChecked={ form.terms }/>
         { form.errors.terms ? <span style={ styles.error }>{ form.errors.terms }</span> : null }

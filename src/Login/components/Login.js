@@ -24,7 +24,7 @@ const Login = ({
         <Input placeholder="Password"
                onChange={ value => actions._bindOnChange('password', value) }
                value={ form.password }
-               password
+               type="password"
         />
         <div style={ styles.checkboxContainer } onClick={ () => actions.toggleRememberMe() }>
           <CheckBox isChecked={ form.rememberMe }/>

@@ -50,3 +50,27 @@ h1, h2, h3, h4, h5, p {
   font-weight: 400 !important;
   border-radius: 5px !important;
 }
+
+.stripe__input {
+  position: relative;
+  margin: 20px 0;
+  display: block;
+  width: 100%;
+  padding: 15px 25px;
+  font-size: 15px;
+  border: solid 1px #EBEBEB;
+  outline: 0;
+  zIndex: 0;
+}
+
+.stripe__input_cvc {
+
+}
+
+.stripe__input_expiry {
+
+}
+
+.DateRangePickerInput_arrow_svg {
+  margin: 0 10px 3px 5px;
+}

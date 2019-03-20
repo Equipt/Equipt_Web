@@ -1,6 +1,7 @@
 import React from 'react';
 import Radium from 'radium';
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 import { Select, Option } from '../../components/Select';
 import theme from '../../theme.js';
 import { getAllCountries, getStatesOfCountry } from 'country-state-city';
@@ -45,7 +46,13 @@ const Contact = ({
             errors={ form.errors['address.state'] }
             onSelect={ state => actions._bindOnChange('address.state', state) }>
             {
-              getStates(form.address.country).map(state => <Option value={ state.name }>{ state.name }</Option>)
+              getStates(form.address.country).map(state => (
+                <Option
+                  key={ `state_${ state.name}` }
+                  value={ state.name }>
+                  { state.name }
+                </Option>
+              ))
             }
     </Select>
     <Input  placeholder="Zip / Postal Code"
@@ -59,7 +66,12 @@ const Contact = ({
             errors={ form.errors['address.country'] }
             onSelect={ country => actions._bindOnChange('address.country', country) }>
             {
-              countries.map(country => <Option value={ country.sortname }>{ country.name }</Option>)
+              countries.map(country => (
+                <Option
+                  key={ `country_${ country.name }`}
+                  value={ country.sortname }>{ country.name }
+                </Option>
+              ))
             }
     </Select>
     <div style={ theme.break }/>
@@ -68,10 +80,15 @@ const Contact = ({
             customStyles={ styles.phone }
             errors={ form.errors['phone.number'] }
             onChange={ number => actions._bindOnChange('phone.number', number) }/>
-    <button style={ theme.btn } onClick={ e => {
+    <Button
+      customStyles={ styles.submit }
+      isLoading={ form.isLoading }
+      onClick={ e => {
       e.preventDefault();
-      actions.updateProfile(() => moveToTab(2));
-    }}>Next</button>
+      actions.updateProfile({ nextTab: 'verification' });
+    }}>
+      Save
+    </Button>
   </form>
 );
 
@@ -105,6 +122,9 @@ const styles = {
   },
   country: {
     width: '50%'
+  },
+  submit: {
+    minWidth: 90
   }
 }
 

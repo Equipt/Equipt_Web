@@ -2,11 +2,13 @@ import React from 'react';
 import Radium from 'radium';
 import theme from '../../../theme.js';
 import StarRating from 'react-star-ratings';
-import Terms from '../../../components/Terms'
+import Terms from '../../../components/Terms';
 import ProfileIcon from '../../../components/icons/Profile';
+import Payment from './Payment';  
 
 const Info = ({
   sportingGood,
+  session,
   rental,
   actions
 }) => {
@@ -34,7 +36,11 @@ const Info = ({
       { hasDatesSelected ? <h3>{ rental.startDate }<span style={ styles.smallText }>till</span>{ rental.endDate }</h3> : null }
       { rental.total ? <h2>${ rental.total }</h2> : null }
       { hasDatesSelected ? <Terms actions={ actions } isChecked={ rental.agreedToTerms } error={ rental.errors }/> : null }
-      <button style={ styles.rentBtn } disabled={ !hasDatesSelected } onClick={ () => actions.rent() }>Rent</button>
+      <button style={ styles.rentBtn }
+              disabled={ !hasDatesSelected }
+              onClick={ () => actions.openModal(<Payment actions={ actions } user={ session.user } rental={ rental }/>) }>
+              Rent
+      </button>
     </div>
   )
 };

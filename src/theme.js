@@ -39,6 +39,16 @@ const styles = {
       maxWidth: 500
     }
   },
+  input: {
+    position: 'relative',
+    display: 'block',
+    width: '100%',
+    padding: '15px 25px',
+    fontSize: '15px',
+    border: `solid 1px ${ variables.colors.border }`,
+    outline: 0,
+    zIndex: 0
+  },
   btn: {
     minHeight: 50,
     padding: '0 25px',

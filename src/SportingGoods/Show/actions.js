@@ -23,15 +23,20 @@ export const fetchSportingGood = id => async(dispatch, getState, { api }) => {
 
 }
 
-export const rent = () => async(dispatch, getState, { api, history }) => {
+export const processPayment = stripe => async(dispatch, getState, { api, history }) => {
 
-  const { rental, sportingGood } = getState();
+  const { rental, sportingGood, session } = getState();
+  const { payment, error } = await stripe.createToken();
+
+  debugger;
 
   try {
 
-    const data = await api.post(`/sporting_goods/${ sportingGood.slug }/rentals`, rental);
+    const data = await api.post(`/sporting_goods/${ sportingGood.slug }/rentals`, { rental, payment });
 
     dispatch(setRental(data));
+
+    history.push(`/rentals/${ data.hash_id }`);
 
   } catch(err) {
 

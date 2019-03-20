@@ -24,34 +24,36 @@ class Profile extends Component {
 
   hasContact() {
     const { user } = this.props;
-    return Object.keys(user.address).length
-      && Object.keys(user.phone).length;
+    return !!(Object.keys(user.address).length && Object.keys(user.phone).length);
   }
 
   render() {
 
-    const { user } = this.props;
+    const { user, form, actions } = this.props;
 
     return (
       <section>
-        <Tabs>
-          <Tab title="Basic" checked={ this.hasBasic() }>
+        <Tabs customStyles={ styles.list } currentTab={ form.currentTab  } onChange={ currentTab => actions.changedTab(currentTab) }>
+          <Tab title="Basic" name="basic" checked={ this.hasBasic() }>
             <Basic { ...this.props }/>
           </Tab>
-          <Tab title="Contact" checked={ this.hasContact() }>
+          <Tab title="Contact" name="contact" checked={ this.hasContact() }>
             <Contact { ...this.props }/>
           </Tab>
-          <Tab title="Verification" checked={ user.isVerified }>
+          <Tab title="Verification" name="verification" checked={ user.isVerified }>
             <Verification { ...this.props }/>
-          </Tab>
-          <Tab title="Payment Methods" checked={ true }>
-            <div>Payment</div>
           </Tab>
         </Tabs>
       </section>
     )
   }
 
+}
+
+const styles = {
+  list: {
+    margin: '0 40px'
+  }
 }
 
 export default Profile;

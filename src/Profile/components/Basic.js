@@ -1,6 +1,7 @@
 import React from 'react';
 import Radium from 'radium';
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 import ImageUploader from 'react-images-upload';
 import theme from '../../theme.js';
 
@@ -26,9 +27,17 @@ const Basic = ({
               onChange={ value => actions._bindOnChange('email', value) }/>
     </div>
     <div style={ styles.leftRail }>
-      <ImageUploader withPreview={ true }/>
+      <ImageUploader withPreview={ true } onChange={ ([ image ]) => actions._bindOnChange('image', image) }/>
     </div>
-    <button style={ theme.btn } onClick={ () => moveToTab(1) }>Next</button>
+    <Button
+      customStyles={ styles.submit }
+      isLoading={ form.isLoading }
+      onClick={ e => {
+      e.preventDefault();
+      actions.updateProfile({ nextTab: 'contact', basic: true });
+    }}>
+      Save
+    </Button>
   </form>
 );
 
@@ -56,6 +65,9 @@ const styles = {
   },
   input: {
     marginBottom: 40
+  },
+  submit: {
+    minWidth: 90
   }
 }
 

@@ -8,10 +8,11 @@ import * as rentalActions from './../../Rental/Show/actions.js';
 
 import Wrapper from './components/Wrapper';
 
-const mapState = ({ sportingGood, rental, loading }) => ({
+const mapState = ({ sportingGood, rental, loading, session }) => ({
   sportingGood,
   rental,
-  loading
+  loading,
+  session
 });
 
 const mapDispatch = (dispatch) => {

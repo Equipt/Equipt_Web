@@ -24,6 +24,8 @@ const algoliaClient = algoliasearch(
   process.env.REACT_APP_AGOLIA_SEARCH_ONLY_KEY
 );
 
+// Set up stripe
+
 const algolia = algoliaClient.initIndex(`SportingGood_development`);
 
 const thunkMiddleware = thunk.withExtraArgument({ api, history, algolia });
