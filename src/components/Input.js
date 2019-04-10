@@ -24,7 +24,6 @@ const Input = ({
            placeholder={ placeholder }
            defaultValue={ value }
            style={ styles.input }
-           type={ type }
            autoComplete="off"
     />
     {

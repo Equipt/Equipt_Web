@@ -26,13 +26,15 @@ export const fetchSportingGood = id => async(dispatch, getState, { api }) => {
 export const processPayment = stripe => async(dispatch, getState, { api, history }) => {
 
   const { rental, sportingGood, session } = getState();
-  const { payment, error } = await stripe.createToken();
+  const { token, error } = await stripe.createToken(stripe);
 
-  debugger;
+  if (error) {
+    return dispatch(setAlert({ error: error.message }));
+  }
 
   try {
 
-    const data = await api.post(`/sporting_goods/${ sportingGood.slug }/rentals`, { rental, payment });
+    const data = await api.post(`/sporting_goods/${ sportingGood.slug }/rentals`, { rental, payment: token });
 
     dispatch(setRental(data));
 
@@ -44,7 +46,6 @@ export const processPayment = stripe => async(dispatch, getState, { api, history
       return dispatch(setAlert(err.errors));
     }
 
-    await dispatch(openModal(<Profile/>));
     await dispatch(setAlert(err));
 
   }

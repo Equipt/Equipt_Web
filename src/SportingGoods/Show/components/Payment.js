@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import theme from './../../../theme.js';
-import Input from './../../../components/Input';
-import Button from './../../../components/Button';
 
 import {
   CardCVCElement,

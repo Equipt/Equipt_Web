@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { setAlert } from './Alert/actions.js';
 
 export default class Api {
 
@@ -17,6 +18,46 @@ export default class Api {
 			}
 			return config;
 		});
+
+		axios.interceptors.response.use(
+			response => response,
+			error => {
+
+				const { status, data } = error.response;
+				const { dispatch } = this.store;
+
+				switch(status) {
+					// Server error
+					case 500:
+						dispatch(setAlert({ error: 'Oh no, something went wrong here!' }));
+						return Promise.reject(error);
+					break;
+					// Bad Request
+					case 400:
+						if (data.notice) dispatch(setAlert(data.notice));
+						break;
+					// Forbidden
+					case 403:
+					// Unprocessable Entity
+					case 422:
+						dispatch(setAlert(data));
+						break;
+					// Unauthorized
+					case 401:
+						localStorage.clear();
+						dispatch(setAlert({ error: 'Sorry it doesn\'t look like you are signed in' }));
+						return this.history.push('/login');
+						break;
+					// Not found
+					case 404:
+						dispatch(setAlert({ error: data }));
+						return this.history.push('/not_found');
+						break;
+				}
+
+				return Promise.reject(error);
+
+			})
 
 	}
 
