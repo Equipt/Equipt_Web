@@ -26,7 +26,7 @@ class TabsComponent extends Component {
 
   render() {
 
-    const { children, defaultTab, customStyles = {} } = this.props;
+    const { children, customStyles = {} } = this.props;
     const { currentTab } = this.state;
 
     return (

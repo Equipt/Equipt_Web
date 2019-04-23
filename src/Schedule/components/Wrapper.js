@@ -1,37 +1,27 @@
-import React, { Component } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import theme from '../../theme.js';
 import { Link } from "react-router-dom";
 import Radium from 'radium';
+import List from './List';
 
 const StyledLink = Radium(Link);
 
-class Wrapper extends Component {
+const Wrapper = ({
+  schedule,
+  actions
+}) => {
 
-  static propTypes = {
-
-  }
-
-  componentDidMount() {
-    const { actions } = this.props;
+  useEffect(() => {
     actions.fetchSchedule();
-  }
+  }, []);
 
-  render() {
-
-    const { schedule } = this.props;
-
-    return (
-      <section style={ theme.container }>
-        <StyledLink to="/sporting_goods/new" style={ theme.btn }>Add A Item</StyledLink>
-        {
-          schedule.map(rental => (
-            <li>{ rental.title }</li>
-          ))
-        }
-      </section>
-    )
-  }
+  return (
+    <Fragment>
+      <StyledLink to="/sporting_goods/new" style={ theme.btn }>Add A Item</StyledLink>
+      <List schedule={ schedule }/>
+    </Fragment>
+  )
 
 }
 
-export default Radium(Wrapper);
+export default Wrapper;

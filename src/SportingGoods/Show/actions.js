@@ -1,12 +1,8 @@
-import React from 'react';
 import types from './types.js';
-
-import Profile from '../../Profile';
 
 import { setRental } from '../../Rental/Show/actions.js';
 import { showLoader } from '../../Loading/actions.js';
 import { setAlert } from '../../Alert/actions.js';
-import { openModal } from '../../Modal/actions.js';
 
 export const fetchSportingGood = id => async(dispatch, getState, { api }) => {
 
@@ -25,7 +21,7 @@ export const fetchSportingGood = id => async(dispatch, getState, { api }) => {
 
 export const processPayment = stripe => async(dispatch, getState, { api, history }) => {
 
-  const { rental, sportingGood, session } = getState();
+  const { rental, sportingGood } = getState();
   const { token, error } = await stripe.createToken(stripe);
 
   if (error) {

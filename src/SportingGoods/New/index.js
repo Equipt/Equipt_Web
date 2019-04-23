@@ -5,9 +5,8 @@ import * as actions from './actions.js';
 
 import Wrapper from './components/Wrapper';
 
-const mapState = ({ sportingGoods, loading }) => ({
-  sportingGoods,
-  loading
+const mapState = ({ sportingGood, loading }) => ({
+  sportingGood
 });
 
 const mapDispatch = (dispatch) => {

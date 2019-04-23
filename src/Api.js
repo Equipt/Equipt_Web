@@ -30,8 +30,7 @@ export default class Api {
 					// Server error
 					case 500:
 						dispatch(setAlert({ error: 'Oh no, something went wrong here!' }));
-						return Promise.reject(error);
-					break;
+						break;
 					// Bad Request
 					case 400:
 						if (data.notice) dispatch(setAlert(data.notice));
@@ -39,6 +38,8 @@ export default class Api {
 					// Forbidden
 					case 403:
 					// Unprocessable Entity
+						dispatch(setAlert(data));
+						break;
 					case 422:
 						dispatch(setAlert(data));
 						break;
@@ -46,13 +47,15 @@ export default class Api {
 					case 401:
 						localStorage.clear();
 						dispatch(setAlert({ error: 'Sorry it doesn\'t look like you are signed in' }));
-						return this.history.push('/login');
+						this.history.push('/login');
 						break;
 					// Not found
 					case 404:
 						dispatch(setAlert({ error: data }));
-						return this.history.push('/not_found');
+						this.history.push('/not_found');
 						break;
+					default:
+						return Promise.reject(error);
 				}
 
 				return Promise.reject(error);

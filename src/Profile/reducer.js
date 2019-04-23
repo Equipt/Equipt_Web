@@ -31,7 +31,7 @@ export default (state = defaultState, { type, payload }, root) => {
         if (arr[value] instanceof Object) {
           return arr[value];
         } else {
-          arr[value] = payload[field];
+          return arr[value] = payload[field];
         }
       }, state);
       return { ...state };

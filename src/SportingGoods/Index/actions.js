@@ -20,12 +20,6 @@ export const fetchSportingGoods = ({
     filters: wantsOwned ? `user_id = ${ userId }` : `user_id != ${ userId }`
   };
 
-  // Set pagination if no search
-  // if (!keyword.length && !location) {
-  //   params.hitsPerPage = perPage;
-  //   params.page = page;
-  // }
-
   if (location && location.lat && location.lng) {
     params.aroundLatLng =  `${ location.lat }, ${ location.lng }`;
     params.aroundRadius = distance * 1000;
@@ -33,25 +27,41 @@ export const fetchSportingGoods = ({
 
   if (!keyword && !location) dispatch(loadingActions.showLoader(true));
 
-  const { hits, nbHits, hitsPerPage } = await algolia.search(params);
+  try {
 
-  await dispatch({
-    type: types.SET_SPORTING_GOODS,
-    payload: {
-      keyword,
-      location,
-      distance,
-      results: hits,
-      total: nbHits,
-      totalPerPage: hitsPerPage,
-      page
-    }
-  })
+    const response = await algolia.search(params);
+
+    dispatch(setSportingGoods(response));
+
+  } catch (error) {
+
+    const response = await api.get('/sporting_goods');
+
+    dispatch(setSportingGoods(response));
+
+  }
 
   dispatch(loadingActions.showLoader(false));
 
 }
 
-export const changedPlace = place => async(dispatch, getState) => {
-
-}
+export const setSportingGoods = ({
+  keyword,
+  location,
+  distance,
+  hits,
+  nbHits,
+  hitsPerPage,
+  page
+}) => ({
+  type: types.SET_SPORTING_GOODS,
+  payload: {
+    keyword,
+    location,
+    distance,
+    results: hits,
+    total: nbHits,
+    totalPerPage: hitsPerPage,
+    page
+  }
+});
