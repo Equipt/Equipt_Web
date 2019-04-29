@@ -1,25 +1,23 @@
 import React from 'react';
-import { Slider, Slide } from '../../components/Slider';
 import withStyles from '../../hocs/withStyles.js';
+import Moment from 'moment';
+import { Link } from "react-router-dom";
+import theme from './../../theme.js';
 
 const Tile = ({
   sportingGood,
+  hashId,
   startDate,
   endDate,
   styles
 }) => (
   <div style={ styles.tile }>
-    <p>{ startDate } - { endDate }</p>
-    <Slider>
-    {
-      sportingGood.images.map(image => (
-        <Slide>
-          <img style={ styles.slide } src={ process.env.REACT_APP_SERVER_DOMAIN + image.file.url }/>
-        </Slide>
-      ))
-    }
-    </Slider>
-    <h4>{ sportingGood.title }</h4>
+    <Link style={ styles.link } to={ `/sporting_goods/${ sportingGood.slug }/rentals/${ hashId }` }>
+      <h4 style={ styles.datesTxt }>{ Moment(startDate).format('MMM Do') } - { Moment(endDate).format('MMM Do') }</h4>
+      <div style={ styles.image }/>
+      <h4>{ sportingGood.title }</h4>
+      <p style={ styles.detailsLink }>See details</p>
+    </Link>
   </div>
 );
 
@@ -27,12 +25,28 @@ const styles = ({
   sportingGood
 }) => ({
   tile: {
-    minWidth: '25%'
+    maxWidth: '30%',
+    minWidth: 300,
+    margin: '0 0 50px'
   },
-  slide: {
+  image: {
     width: '100%',
-    height: 'auto',
-    backgroundPosition: 'center'
+    height: 200,
+    backgroundImage: `url(${ process.env.REACT_APP_SERVER_DOMAIN + sportingGood.primaryImage })`,
+    backgroundSize: 'contain',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
+  },
+  link: {
+    textDecoration: 'none'
+  },
+  datesTxt: {
+    fontWeight: 'bold',
+    marginBottom: 20
+  },
+  detailsLink: {
+    paddingTop: 15,
+    borderTop: `solid 1px ${ theme.colors.border }`
   }
 });
 

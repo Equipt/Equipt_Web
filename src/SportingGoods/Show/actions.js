@@ -1,8 +1,9 @@
 import types from './types.js';
 
-import { setRental } from '../../Rental/Show/actions.js';
+import { setRental } from '../../Rentals/Show/actions.js';
 import { showLoader } from '../../Loading/actions.js';
 import { setAlert } from '../../Alert/actions.js';
+import { openModal } from '../../Modal/actions.js';
 
 export const fetchSportingGood = id => async(dispatch, getState, { api }) => {
 

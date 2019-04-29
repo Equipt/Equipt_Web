@@ -20,7 +20,8 @@ const Nav = ({
       session.authenticated ?
       (
         <div style={ styles.session }>
-          <StyledLink style={ styles.schedule } to="/schedule">Schedule</StyledLink>
+          <StyledLink style={ styles.btn } to="/sporting_goods/new">Add A Item</StyledLink>
+          <StyledLink style={ styles.btn } to="/schedule">Schedule</StyledLink>
           <div style={{ marginTop: 7 }} onClick={ () => actions.openModal(<Profile/>) }>
           {
             session.user.profile ?
@@ -58,9 +59,9 @@ const styles = {
     height: 50,
     width: 50
   },
-  schedule: {
+  btn: {
     ...theme.btn,
-    margin: '0 20px',
+    margin: '0 20px 0 0',
     padding: '14px 25px',
     fontSize: 16
   },

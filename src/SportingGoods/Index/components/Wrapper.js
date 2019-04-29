@@ -1,45 +1,40 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import theme from '../../../theme.js';
-import Radium from 'radium';
 
 import Tile from './Tile';
 import Filter from './Filter';
 import Loading from './../../../Loading';
 
-class Wrapper extends Component {
+const Wrapper = props => {
 
-  componentDidMount() {
-    this.props.actions.fetchSportingGoods();
-  }
+  useEffect(() => {
+    props.actions.fetchSportingGoods();
+  }, []);
 
-  render() {
+  const { results } = props.sportingGoods;
 
-    const { sportingGoods, loading } = this.props;
-    const { results } = sportingGoods;
-
-    return (
-      <section style={{ ...theme.container, ...styles.container }}>
-        <Filter { ...this.props }/>
-        {
-          loading ? <Loading/> : (
-            results.length ? (
-              <div style={ styles.tiles }>
-                { results.map(sportingGood => <Tile { ...sportingGood } key={ `tile_${ sportingGood.slug }` }/>) }
-              </div>
-            ) : (
-              <h4>Sorry, We don't have this yet!</h4>
-            )
+  return (
+    <section style={ styles.container }>
+      <Filter { ...props }/>
+      {
+        props.loading ? <Loading/> : (
+          props.sportingGoods.results.length ? (
+            <div style={ styles.tiles }>
+              { results.map(sportingGood => <Tile { ...sportingGood } key={ `tile_${ sportingGood.slug }` }/>) }
+            </div>
+          ) : (
+            <h4>Sorry, We don't have this yet!</h4>
           )
-        }
-      </section>
-    );
-
-  }
+        )
+      }
+    </section>
+  );
 
 }
 
 const styles = {
   container: {
+    ...theme.container,
     height: '100%'
   },
   tiles: {
@@ -51,4 +46,4 @@ const styles = {
   }
 }
 
-export default Radium(Wrapper);
+export default Wrapper;

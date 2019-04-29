@@ -8,12 +8,13 @@ import Ratings from './Ratings';
 import theme from '../../../theme.js';
 import withStyles from '../../../hocs/withStyles.js';
 import Radium from 'radium';
+import { randomKey } from './../../../helpers.js';
 
 class Wrapper extends Component {
 
   componentDidMount() {
     const { actions, match } = this.props;
-    actions.fetchSportingGood(match.params.id);
+    actions.fetchSportingGood(match.params.slug);
   }
 
   render() {
@@ -28,8 +29,8 @@ class Wrapper extends Component {
         <Slider>
         {
           images.map(({ file }, index) => (
-            <Slide customStyles={ styles.slide }>
-              <div key={ `slide_${index}` } style={{
+            <Slide key={ randomKey() } customStyles={ styles.slide }>
+              <div style={{
                 ...styles.image,
                 backgroundImage: `url(${process.env.REACT_APP_SERVER_DOMAIN}${file.url})`
               }}/>

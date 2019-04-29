@@ -10,7 +10,7 @@ import signup from './Signup/reducer.js';
 import schedule from './Schedule/reducer.js';
 import sportingGoods from './SportingGoods/Index/reducer.js';
 import sportingGood from './SportingGoods/Show/reducer.js';
-import rental from './Rental/Show/reducer.js';
+import rental from './Rentals/Show/reducer.js';
 
 export default combineReducers({
   alert,

@@ -19,18 +19,21 @@ export const updateProfile = ({ nextTab, basic = false }) => async(dispatch, get
       }}) :
       await api.put(`/user/${ data.id }`, { user: { ...data, terms: true } });
 
-
     sessionService.saveUser(user);
 
     if (nextTab) {
       dispatch(changedTab(nextTab));
     }
 
-  } catch(user) {
+  } catch({ data }) {
+
+    if (data.errors['address.invalid']) {
+      dispatch(setAlert({ error: 'Sorry, the address you entered could not be found' }));
+    }
 
     dispatch({
       type: types['@PROFILE/SET_ERRORS'],
-      payload: user.errors
+      payload: data.errors
     });
 
   } finally {

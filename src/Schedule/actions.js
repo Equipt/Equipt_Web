@@ -1,12 +1,14 @@
 import types from './types.js';
 
-import * as loadingActions from '../Loading/actions.js';
+import { showLoader } from '../Loading/actions.js';
 
 export const fetchSchedule = () => async(dispatch, getState, { api }) => {
 
+  dispatch(showLoader(true));
+
   const ownersRentals = await api.get('/owner/rentals');
 
-   dispatch(loadingActions.showLoader(true));
+  await dispatch(showLoader(false));
 
   dispatch({
     type: types.FETCH_SCHEDULE,

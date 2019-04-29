@@ -1,9 +1,12 @@
 import React from 'react';
 import Input from './../../../components/Input';
 import { Select, Option } from './../../../components/Select';
+import CloseIcon from './../../../components/icons/Close';
 import Geosuggest from 'react-geosuggest';
 import Radium from 'radium';
 import theme from '../../../theme.js';
+
+let _geoLocation;
 
 const Filter = ({
   actions,
@@ -21,13 +24,24 @@ const Filter = ({
             value={ keyword }/>
     <div style={ styles.geosuggest.wrapper }>
       <Geosuggest style={ styles.geosuggest }
+                  ref={ ref => _geoLocation = ref }
                   onSuggestSelect={ ({ location } = {}) => {
                     actions.fetchSportingGoods({ keyword, location, distance });
                   }}/>
+      {
+        location.lat && location.lng ? (
+          <div style={ styles.geosuggest.close } onClick={ () => {
+            _geoLocation && _geoLocation.clear();
+            actions.fetchSportingGoods({ keyword });
+          }}>
+            <CloseIcon fill={ theme.colors.border } width={ 15 }/>
+          </div>
+        ) : null
+      }
     </div>
     <Select placeholder="Distance"
             customStyles={ styles.select }
-            value={ `${ distance }km` }
+            value={ distance }
             onSelect={ distance => actions.fetchSportingGoods({ keyword, location, distance }) }>
       <Option value="5">5km</Option>
       <Option value="10">10km</Option>
@@ -56,7 +70,7 @@ const styles = {
     }
   },
   select: {
-    maxWidth: '20%',
+    maxWidth: '20%'
   },
   geosuggestContainer: {
     position: 'relative'
@@ -90,8 +104,9 @@ const styles = {
     },
     close: {
       position: 'absolute',
-      top: 17,
-      right: 20
+      top: 7,
+      right: 15,
+      cursor: 'pointer'
     }
   }
 }

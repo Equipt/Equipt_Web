@@ -6,7 +6,7 @@ const defaultState = {
   keyword: '',
   place: '',
   location: {},
-  distance: 0,
+  distance: 5,
   page: 0
 }
 

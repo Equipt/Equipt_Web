@@ -3,7 +3,7 @@ import Radium from 'radium';
 import GoogleMap from 'google-map-react';
 import theme from '../theme.js';
 
-const MapComponent = ({
+export const Map = ({
   latitude = 0,
   longitude = 0,
   children
@@ -18,7 +18,9 @@ const MapComponent = ({
   </div>
 );
 
-const RadiusMarkerComponent = () => <div style={ styles.generalAreaCircle }/>;
+export const RadiusMarker = () => <div style={ styles.generalAreaCircle }/>;
+
+export const Marker = () => <div style={ styles.marker }/>
 
 const styles = {
   container: {
@@ -31,8 +33,13 @@ const styles = {
     marginTop: -50,
     marginLeft: -50,
     border: `solid 5px ${theme.colors.primary}`,
-    borderRadius: '100%',
-
+    borderRadius: '100%'
+  },
+  marker: {
+    width: 20,
+    height: 20,
+    border: `solid 5px ${theme.colors.primary}`,
+    borderRadius: '100%'
   }
 }
 
@@ -227,5 +234,6 @@ const mapStyles = [
     }
 ]
 
-export const Map = Radium(MapComponent);
-export const RadiusMarker = Radium(RadiusMarkerComponent);
+// export const Map = Radium(MapComponent);
+// export const RadiusMarker = Radium(RadiusMarkerComponent);
+// export const Marker = Radium(Marker);

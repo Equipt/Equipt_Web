@@ -23,6 +23,7 @@ const styles = {
   container: {
     maxWidth: 1200,
     width: '100vw',
+    minHeight: '100%',
     top: 90,
     height: 'calc(100vh - 70px)',
     margin: '0 auto',
@@ -60,9 +61,12 @@ const styles = {
     textDecoration: 'none',
     outline: 'none',
     borderRadius: 5,
-    ":disabled": {
+    ':disabled': {
       background: variables.colors.disabled,
       cursor: 'not-allowed'
+    },
+    ':hover': {
+      opacity: 0.7
     }
   },
   checkbox: {

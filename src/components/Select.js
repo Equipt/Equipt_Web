@@ -17,10 +17,6 @@ class SelectTag extends Component {
     }
   }
 
-  componentWillReceiveProps() {
-
-  }
-
   filterResults() {
     const { children, onSelect } = this.props;
     const { filter } = this.state;
@@ -51,10 +47,6 @@ class SelectTag extends Component {
            onMouseLeave={ () => this.setState({ isOpen: false }) }>
         <input style={ styles.placeholder }
                placholder={ placeholder }
-               // onChange={ e => this.setState({
-               //   filter: e.target.value,
-               //   isOpen: true
-               // })}
                value={ filter || value }/>
         <span  style={ styles.error }>{ errors.length ? errors.join(', ') : '' }</span>
         <Chevron width="20"

@@ -4,7 +4,8 @@ import theme from '../../../theme.js';
 import StarRating from 'react-star-ratings';
 import Terms from '../../../components/Terms';
 import ProfileIcon from '../../../components/icons/Profile';
-import Payment from './Payment';  
+import Payment from './Payment';
+import Profile from './../../../Profile';
 
 const Info = ({
   sportingGood,
@@ -37,8 +38,14 @@ const Info = ({
       { rental.total ? <h2>${ rental.total }</h2> : null }
       { hasDatesSelected ? <Terms actions={ actions } isChecked={ rental.agreedToTerms } error={ rental.errors }/> : null }
       <button style={ styles.rentBtn }
-              disabled={ !hasDatesSelected }
-              onClick={ () => actions.openModal(<Payment actions={ actions } user={ session.user } rental={ rental }/>) }>
+              disabled={ !hasDatesSelected || !rental.agreedToTerms }
+              onClick={ () => {
+                if (session.user.isVerified) {
+                  actions.openModal(<Payment actions={ actions } rental={ rental } user={ session.user }/>)
+                } else {
+                  actions.openModal(<Profile/>)
+                }
+              }}>
               Rent
       </button>
     </div>

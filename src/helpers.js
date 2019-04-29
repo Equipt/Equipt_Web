@@ -20,3 +20,6 @@ export const buildFormData = (resource, data, images) => {
 	return formData;
 
 }
+
+
+export const randomKey = () => Math.random().toString(36).substring(7);

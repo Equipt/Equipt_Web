@@ -14,10 +14,10 @@ import Router from './Router.js';
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const api = new Api();
-
 // Create a browser history
 const history = createHistory();
+
+const api = new Api(history);
 
 const algoliaClient = algoliasearch(
   process.env.REACT_APP_AGOLIA_ID,

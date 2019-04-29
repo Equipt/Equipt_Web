@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Radium from 'radium';
 import StarRating from 'react-star-ratings';
 import theme from '../../../theme.js';
+import { randomKey } from './../../../helpers.js';
 
 const Ratings = ({
   ratings
@@ -11,7 +12,7 @@ const Ratings = ({
   {
     ratings.length ?
     ratings.map(({ rating, comment, createdAt }, index) => (
-      <li key={ `rating_${ index }` } style={ styles.listItem }>
+      <li key={ randomKey() } style={ styles.listItem }>
         <div style={ styles.starRatingContainer }>
           <StarRating rating={ rating }
                       starRatedColor={ theme.colors.primary }

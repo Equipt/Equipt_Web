@@ -3,8 +3,7 @@ import { bindActionCreators } from 'redux';
 
 import * as actions from './actions.js';
 import * as modalActions from './../../Modal/actions.js';
-import * as rentalActions from './../../Rental/Show/actions.js';
-
+import * as rentalActions from './../../Rentals/Show/actions.js';
 
 import Wrapper from './components/Wrapper';
 

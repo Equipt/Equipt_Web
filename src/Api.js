@@ -23,42 +23,29 @@ export default class Api {
 			response => response,
 			error => {
 
-				const { status, data } = error.response;
+				const { status } = error.response;
 				const { dispatch } = this.store;
 
 				switch(status) {
 					// Server error
 					case 500:
+						localStorage.clear();
 						dispatch(setAlert({ error: 'Oh no, something went wrong here!' }));
-						break;
-					// Bad Request
-					case 400:
-						if (data.notice) dispatch(setAlert(data.notice));
-						break;
-					// Forbidden
-					case 403:
-					// Unprocessable Entity
-						dispatch(setAlert(data));
-						break;
-					case 422:
-						dispatch(setAlert(data));
+						return this.history.push('/login');
 						break;
 					// Unauthorized
 					case 401:
 						localStorage.clear();
 						dispatch(setAlert({ error: 'Sorry it doesn\'t look like you are signed in' }));
-						this.history.push('/login');
+						return this.history.push('/login');
 						break;
 					// Not found
 					case 404:
-						dispatch(setAlert({ error: data }));
 						this.history.push('/not_found');
 						break;
 					default:
-						return Promise.reject(error);
+						return Promise.reject(error.response);
 				}
-
-				return Promise.reject(error);
 
 			})
 
@@ -128,7 +115,7 @@ export default class Api {
 
 			axios(ajaxObj)
 			.then((res, status, xhr) => resolve(res.data))
-			.catch(({ response }) => reject(response.data));
+			.catch(err => reject(err));
 
 		});
 

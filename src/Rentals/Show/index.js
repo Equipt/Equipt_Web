@@ -5,10 +5,10 @@ import * as actions from './actions.js';
 import Wrapper from './components/Wrapper';
 
 const mapState = ({
-  schedule,
+  rental,
   loading
 }) => ({
-  schedule,
+  rental,
   loading
 });
 
