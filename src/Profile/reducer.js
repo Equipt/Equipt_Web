@@ -44,6 +44,9 @@ export default (state = defaultState, { type, payload }, root) => {
       return { ...state, currentTab: payload };
     case types['@PROFILE/IS_LOADING']:
       return { ...state, isLoading: payload };
+    case types['@PROFILE/SET_ADDRESS']:
+      debugger;
+      return { ...state, address: payload }
     default:
       return state;
   }

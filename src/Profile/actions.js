@@ -44,6 +44,26 @@ export const updateProfile = ({ nextTab, basic = false }) => async(dispatch, get
 
 }
 
+export const setAddress = data => {
+
+  const components = data.address_components;
+
+  const address = {
+    number: components[0].long_name,
+    street: components[1].long_name,
+    city: components[2].long_name,
+    state: components[3].long_name,
+    country: components[4].long_name,
+    zip: components[5].long_name
+  }
+
+  return {
+    type: types['@PROFILE/SET_ADDRESS'],
+    payload: address
+  }
+
+}
+
 export const setupForm = () => async(dispatch, getState) => {
 
   const session = getState()['session'];
@@ -81,9 +101,9 @@ export const verify = pin => async(dispatch, getState, { api }) => {
 
     sessionService.saveUser(user);
 
-  } catch(err) {
+  } catch({ data }) {
 
-    dispatch(setAlert(err));
+    dispatch(setAlert(data));
 
   }
 

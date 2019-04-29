@@ -35,7 +35,7 @@ class SelectTag extends Component {
       customStyles,
       styles,
       children,
-      value = null,
+      value = '',
       errors = []
     } = this.props;
 
@@ -46,8 +46,9 @@ class SelectTag extends Component {
            onMouseEnter={ () => this.setState({ isOpen: true }) }
            onMouseLeave={ () => this.setState({ isOpen: false }) }>
         <input style={ styles.placeholder }
-               placholder={ placeholder }
-               value={ filter || value }/>
+               placeholder={ placeholder }
+               value={ filter || value }
+               readOnly/>
         <span  style={ styles.error }>{ errors.length ? errors.join(', ') : '' }</span>
         <Chevron width="20"
                  height="20"
@@ -71,7 +72,6 @@ SelectTag.propTypes = {
   children: PropTypes.array.isRequired,
   customStyles: PropTypes.object,
   onSelect: PropTypes.func.isRequired,
-  value: PropTypes.string,
   errors: PropTypes.array
 }
 

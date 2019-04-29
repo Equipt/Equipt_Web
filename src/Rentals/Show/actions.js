@@ -6,6 +6,11 @@ export const setRental = rental => ({
   payload: rental
 });
 
+export const clearRental = () => ({
+  type: types.CLEAR_RENTAL,
+  payload: null
+});
+
 export const agreeToTerms = () => ({
   type: types.AGREE_TO_RENTAL_TERMS,
   payload: null

@@ -76,7 +76,7 @@ const styles = {
   break: {
     width: '100%',
     margin: '20px 0',
-    border: `solid 1px ${ variables.colors.border }`
+    borderBottom: `solid 1px ${ variables.colors.border }`
   }
 }
 

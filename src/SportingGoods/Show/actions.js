@@ -1,8 +1,8 @@
 import types from './types.js';
 
-import { setRental } from '../../Rentals/Show/actions.js';
+import { setRental, clearRental } from '../../Rentals/Show/actions.js';
 import { showLoader } from '../../Loading/actions.js';
-import { setAlert } from '../../Alert/actions.js';
+import { setAlert, clearAlert } from '../../Alert/actions.js';
 import { openModal } from '../../Modal/actions.js';
 
 export const fetchSportingGood = id => async(dispatch, getState, { api }) => {
@@ -31,7 +31,7 @@ export const processPayment = stripe => async(dispatch, getState, { api, history
 
   try {
 
-    const data = await api.post(`/sporting_goods/${ sportingGood.slug }/rentals`, { rental, payment: token });
+    const data = await api.post(`/sporting_goods/${ sportingGood.slug }/rentals`, { rental, card: token });
 
     dispatch(setRental(data));
 
@@ -55,15 +55,19 @@ export const checkAvailability = dates => async(dispatch, getState, { api, histo
 
   if (!dates.startDate || !dates.endDate) return;
 
+  dispatch(clearRental());
+
   try {
 
     const rental = await api.post(`/sporting_goods/${ sportingGood.slug }/rentals/check_availability`, dates);
 
     dispatch(setRental(rental));
 
-  } catch(err) {
+  } catch({ data }) {
 
-    dispatch(setAlert(err));
+    if (data.title === 'unavailable') {
+      dispatch(setAlert({ error: 'Sorry, this item is unavailable during these dates' }));
+    }
 
   }
 

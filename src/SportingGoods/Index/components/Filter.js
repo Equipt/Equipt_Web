@@ -3,6 +3,7 @@ import Input from './../../../components/Input';
 import { Select, Option } from './../../../components/Select';
 import CloseIcon from './../../../components/icons/Close';
 import Geosuggest from 'react-geosuggest';
+import GeoLocation from './../../../components/GeoLocation';
 import Radium from 'radium';
 import theme from '../../../theme.js';
 
@@ -22,23 +23,11 @@ const Filter = ({
             canClear={ true }
             onChange={ keyword => actions.fetchSportingGoods({ keyword, location, distance }) }
             value={ keyword }/>
-    <div style={ styles.geosuggest.wrapper }>
-      <Geosuggest style={ styles.geosuggest }
-                  ref={ ref => _geoLocation = ref }
-                  onSuggestSelect={ ({ location } = {}) => {
-                    actions.fetchSportingGoods({ keyword, location, distance });
-                  }}/>
-      {
-        location.lat && location.lng ? (
-          <div style={ styles.geosuggest.close } onClick={ () => {
-            _geoLocation && _geoLocation.clear();
-            actions.fetchSportingGoods({ keyword });
-          }}>
-            <CloseIcon fill={ theme.colors.border } width={ 15 }/>
-          </div>
-        ) : null
-      }
-    </div>
+    <GeoLocation
+      onSuggest={ ({ location } = {}) => actions.fetchSportingGoods({ keyword, location, distance }) }
+      onClose={ () => actions.fetchSportingGoods({ keyword }) }
+      canClose={ location.lat && location.lng }
+    />
     <Select placeholder="Distance"
             customStyles={ styles.select }
             value={ distance }
@@ -74,40 +63,6 @@ const styles = {
   },
   geosuggestContainer: {
     position: 'relative'
-  },
-  geosuggest: {
-    wrapper: {
-      position: 'relative',
-      margin: '20px 0',
-      width: '75%',
-      [theme.media.tabletAndAbove]: {
-        width: '38%'
-      }
-    },
-    input: {
-      border: `solid 1px ${ theme.colors.border }`,
-      padding: '15px 25px',
-      fontSize: '15px',
-      outline: 0
-    },
-    suggests: {
-      position: 'absolute',
-      top: 33,
-      left: 0,
-      padding: 0,
-      background: '#fff',
-      border: `solid 1px ${ theme.colors.border }`
-    },
-    suggestItem: {
-      padding: 10,
-      listStyle: 'none',
-    },
-    close: {
-      position: 'absolute',
-      top: 7,
-      right: 15,
-      cursor: 'pointer'
-    }
   }
 }
 
