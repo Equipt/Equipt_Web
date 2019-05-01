@@ -31,7 +31,7 @@ export const fetchSportingGoods = ({
 
     const response = await algolia.search(params);
 
-    dispatch(setSportingGoods({ distance, location, ...response }));
+    dispatch(setSportingGoods({ keyword, distance, location, ...response }));
 
   } catch (error) {
 

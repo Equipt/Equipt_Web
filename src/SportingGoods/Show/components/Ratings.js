@@ -25,7 +25,7 @@ const Ratings = ({
         </p>
       </li>
     )) :
-    <h3>There are no rentals yet!!</h3>
+    <h3>There are no ratings yet!!</h3>
   }
   </ul>
 );

@@ -1,5 +1,4 @@
 import React from 'react';
-import Radium from 'radium';
 import GoogleMap from 'google-map-react';
 import theme from '../theme.js';
 
@@ -232,8 +231,4 @@ const mapStyles = [
             }
         ]
     }
-]
-
-// export const Map = Radium(MapComponent);
-// export const RadiusMarker = Radium(RadiusMarkerComponent);
-// export const Marker = Radium(Marker);
+];

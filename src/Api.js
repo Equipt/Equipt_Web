@@ -23,7 +23,7 @@ export default class Api {
 			response => response,
 			error => {
 
-				const { status } = error.response;
+				const { status, data } = error.response;
 				const { dispatch } = this.store;
 
 				switch(status) {
@@ -31,21 +31,23 @@ export default class Api {
 					case 500:
 						localStorage.clear();
 						dispatch(setAlert({ error: 'Oh no, something went wrong here!' }));
-						return this.history.push('/login');
+						this.history.push('/login');
 						break;
 					// Unauthorized
 					case 401:
 						localStorage.clear();
 						dispatch(setAlert({ error: 'Sorry it doesn\'t look like you are signed in' }));
-						return this.history.push('/login');
+						this.history.push('/login');
 						break;
 					// Not found
 					case 404:
 						this.history.push('/not_found');
 						break;
 					default:
-						return Promise.reject(error.response);
-				}
+
+				};
+
+				return Promise.reject(data);
 
 			})
 

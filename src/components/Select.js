@@ -34,7 +34,6 @@ class SelectTag extends Component {
       placeholder,
       customStyles,
       styles,
-      children,
       value = '',
       errors = []
     } = this.props;

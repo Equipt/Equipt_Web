@@ -3,10 +3,11 @@ import types from './types.js';
 import { setRental, clearRental } from '../../Rentals/Show/actions.js';
 import { showLoader } from '../../Loading/actions.js';
 import { setAlert, clearAlert } from '../../Alert/actions.js';
-import { openModal } from '../../Modal/actions.js';
+import { closeModal } from '../../Modal/actions.js';
 
 export const fetchSportingGood = id => async(dispatch, getState, { api }) => {
 
+  await dispatch(clearRental());
   dispatch(showLoader(true));
 
   const sportingGood = await api.get(`/sporting_goods/${ id }`);
@@ -33,9 +34,10 @@ export const processPayment = stripe => async(dispatch, getState, { api, history
 
     const data = await api.post(`/sporting_goods/${ sportingGood.slug }/rentals`, { rental, card: token });
 
-    dispatch(setRental(data));
+    await dispatch(setRental(rental));
+    dispatch(closeModal());
 
-    history.push(`/rentals/${ data.hash_id }`);
+    history.push(`/sporting_goods/${ data.sportingGood.slug }/rentals/${ data.hashId }`);
 
   } catch(err) {
 
@@ -55,7 +57,8 @@ export const checkAvailability = dates => async(dispatch, getState, { api, histo
 
   if (!dates.startDate || !dates.endDate) return;
 
-  dispatch(clearRental());
+  await dispatch(clearRental());
+  dispatch(clearAlert());
 
   try {
 
@@ -63,9 +66,9 @@ export const checkAvailability = dates => async(dispatch, getState, { api, histo
 
     dispatch(setRental(rental));
 
-  } catch({ data }) {
+  } catch(rental) {
 
-    if (data.title === 'unavailable') {
+    if (rental && rental.title === 'unavailable') {
       dispatch(setAlert({ error: 'Sorry, this item is unavailable during these dates' }));
     }
 

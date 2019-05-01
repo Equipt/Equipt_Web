@@ -15,10 +15,12 @@
     "prop-types": "^15.6.2",
     "radium": "^0.25.1",
     "react": "^16.8.1",
+    "react-app-rewire-hot-loader": "^2.0.1",
     "react-dates": "^19.0.3",
     "react-dom": "^16.8.1",
     "react-facebook-login": "^4.1.1",
     "react-geosuggest": "^2.10.0",
+    "react-hot-loader": "^4.8.4",
     "react-icons-kit": "^1.2.1",
     "react-images-upload": "^1.2.6",
     "react-pin-input": "^0.8.0",
@@ -52,6 +54,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "react-app-rewired": "^2.1.0"
+    "react-app-rewired": "^2.1.3"
   }
 }

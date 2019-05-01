@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import theme from '../../theme.js';
 import { Link } from "react-router-dom";
-import Radium from 'radium';
 import List from './List';
 import Loading from './../../Loading';
-
-const StyledLink = Radium(Link);
 
 const Wrapper = ({
   schedule,

@@ -19,7 +19,8 @@ export const agreeToTerms = () => ({
 export const fetchRental = ({ slug, hash }) =>
   async(dispatch, getState, { api }) => {
 
-  dispatch(showLoader(true));
+  await dispatch(showLoader(true));
+  dispatch(clearRental());
 
   const rental = await api.get(`/sporting_goods/${ slug }/rentals/${ hash }`);
 

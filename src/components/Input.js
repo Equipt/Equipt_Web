@@ -22,12 +22,12 @@ const Input = ({
     <input onChange={ (e) => onChange(e.target.value) }
            type={ type }
            placeholder={ placeholder }
-           defaultValue={ value }
+           value={ value }
            style={ styles.input }
            autoComplete="off"
     />
     {
-      canClear && value.length ?
+      value && canClear ?
       <div onClick={ () => onChange('') }>
         <Close width="15" fill={ theme.colors.border } customStyles={ styles.close } />
       </div>

@@ -7,6 +7,7 @@ import Spinner from "react-svg-spinner";
 const Button = ({
   children,
   onClick,
+  type = "submit",
   customStyles = {},
   isLoading = false
 }) => (
@@ -22,7 +23,8 @@ const styles = {
 Button.propTypes = {
   onClick: PropTypes.func.isRequired,
   customStyles: PropTypes.object,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  type: PropTypes.string
 }
 
 export default Radium(Button);

@@ -1,13 +1,9 @@
 import React from 'react';
 import Input from './../../../components/Input';
 import { Select, Option } from './../../../components/Select';
-import CloseIcon from './../../../components/icons/Close';
-import Geosuggest from 'react-geosuggest';
 import GeoLocation from './../../../components/GeoLocation';
 import Radium from 'radium';
 import theme from '../../../theme.js';
-
-let _geoLocation;
 
 const Filter = ({
   actions,

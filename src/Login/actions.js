@@ -2,7 +2,7 @@ import types from './types.js';
 import { sessionService } from 'redux-react-session';
 import cookies from 'browser-cookies';
 
-import * as alertActions from '../Alert/actions.js';
+import { setAlert, clearAlert } from '../Alert/actions.js';
 
 export const login = () => async(dispatch, getState, { api, history }) => {
 
@@ -15,13 +15,13 @@ export const login = () => async(dispatch, getState, { api, history }) => {
     sessionService.saveSession({ token: user.token });
     sessionService.saveUser(user);
 
-    dispatch(alertActions.clearAlert());
+    dispatch(clearAlert());
 
     history.push('/sporting_goods');
 
   } catch(err) {
 
-    dispatch(alertActions.setAlert(err));
+    dispatch(setAlert(err));
 
   }
 
@@ -36,13 +36,13 @@ export const facebookLogin = res => async(dispatch, getState, { api, history }) 
     sessionService.saveSession({ token: user.token });
     sessionService.saveUser(user);
 
-    dispatch(alertActions.clearAlert());
+    dispatch(clearAlert());
 
     history.push('/sporting_goods');
 
   } catch(err) {
 
-    dispatch(alertActions.setAlert(err));
+    dispatch(setAlert(err));
 
   }
 
@@ -61,7 +61,7 @@ export const toggleRememberMe = () => (dispatch, getState) => {
 
 export const _bindOnChange = (field, value) => async(dispatch) => {
 
-  await dispatch(alertActions.clearAlert());
+  await dispatch(clearAlert());
 
   dispatch({
     type: types['@LOGIN/ON_CHANGE'],

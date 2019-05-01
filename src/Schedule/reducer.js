@@ -10,9 +10,14 @@ const defaultState = {
 export default (state = defaultState, { type, payload }) => {
 
   switch(type) {
-    case types.FETCH_SCHEDULE:
+    case types.SET_SCHEDULE:
 
-      const data = { ...defaultState };
+      const data = {
+        completed: [],
+        active: [],
+        owned: [],
+        empty: false
+      };
 
       if (!payload.length) {
         data.empty = true;
@@ -25,7 +30,12 @@ export default (state = defaultState, { type, payload }) => {
 
       return data;
 
+    case types.CLEAR_SCHEDULE:
+
+      return defaultState;
+
     default:
+
       return state;
   }
 }
