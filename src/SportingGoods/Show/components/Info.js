@@ -1,9 +1,8 @@
 import React from 'react';
 import Radium from 'radium';
 import theme from '../../../theme.js';
-import StarRating from 'react-star-ratings';
+import Button from '../../../components/Button';
 import Terms from '../../../components/Terms';
-import ProfileIcon from '../../../components/icons/Profile';
 import Payment from './Payment';
 import Profile from './../../../Profile';
 import Price from './Price';
@@ -18,17 +17,18 @@ const Info = ({
     <div style={ styles.reviewsContainer }>
       <Price sportingGood={ sportingGood } rental={ rental }/>
       { rental.startDate && rental.endDate ? <Terms actions={ actions } isChecked={ rental.agreedToTerms } error={ rental.errors }/> : null }
-      <button style={ styles.rentBtn }
-              disabled={ !(rental.startDate && rental.endDate) || !rental.agreedToTerms }
-              onClick={ () => {
-                if (session.user.isVerified) {
-                  actions.openModal(<Payment actions={ actions } sportingGood={ sportingGood } rental={ rental } user={ session.user }/>)
-                } else {
-                  actions.openModal(<Profile/>)
-                }
-              }}>
-              Rent
-      </button>
+      <Button
+        customStyles={ styles.rentBtn }
+        disabled={ !(rental.startDate && rental.endDate) || !rental.agreedToTerms }
+        onClick={ () => {
+          if (session.user.isVerified) {
+            actions.openModal(<Payment actions={ actions } sportingGood={ sportingGood } rental={ rental } user={ session.user }/>)
+          } else {
+            actions.openModal(<Profile/>)
+          }
+        }}>
+        Rent
+      </Button>
     </div>
   </div>
 );

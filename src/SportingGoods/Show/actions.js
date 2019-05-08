@@ -66,11 +66,11 @@ export const checkAvailability = dates => async(dispatch, getState, { api, histo
 
     dispatch(setRental(rental));
 
-  } catch(rental) {
+  } catch(err) {
 
-    if (rental && rental.title === 'unavailable') {
-      dispatch(setAlert({ error: 'Sorry, this item is unavailable during these dates' }));
-    }
+    // if (rental && rental.title === 'unavailable') {
+      dispatch(setAlert(err));
+    // }
 
   }
 

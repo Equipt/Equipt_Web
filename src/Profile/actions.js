@@ -25,7 +25,7 @@ export const updateProfile = ({ nextTab, basic = false }) => async(dispatch, get
       dispatch(changedTab(nextTab));
     }
 
-  } catch({ data }) {
+  } catch(data) {
 
     if (data.errors['address.invalid']) {
       dispatch(setAlert({ error: 'Sorry, the address you entered could not be found' }));

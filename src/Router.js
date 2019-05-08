@@ -34,6 +34,7 @@ export default ({ history, store }) => {
           <Route path="/signup" component={ Signup }/>
           <Route path="/forgot" component={ Forgot }/>
           <Route path="/sporting_goods/:slug/rentals/:hash" render={ props => protectedRoute(<RentalsShow { ...props }/>) }/>
+          <Route path="/owner/sporting_goods/:slug/rentals/:hash" render={ props => protectedRoute(<RentalsShow { ...props } owned={ true }/>) }/>
           <Route path="/sporting_goods" exact render={ props => protectedRoute(<SportingGoodsIndex { ...props }/>) }/>
           <Route path="/sporting_goods/new" render={ props => protectedRoute(<SportingGoodsNew { ...props }/>) }/>
           <Route path="/sporting_goods/:slug" render={ props => protectedRoute(<SportingGoodsShow { ...props }/>) }/>

@@ -7,11 +7,12 @@ import Spinner from "react-svg-spinner";
 const Button = ({
   children,
   onClick,
+  disabled=false,
   type = "submit",
   customStyles = {},
   isLoading = false
 }) => (
-  <button style={{ ...customStyles, ...styles }} onClick={ onClick }>
+  <button style={{ ...customStyles, ...styles }} disabled={ disabled } onClick={ onClick }>
   { isLoading ? <Spinner/> : children }
   </button>
 );

@@ -1,9 +1,6 @@
 import React from 'react';
-import StarRating from 'react-star-ratings';
-import ProfileIcon from '../../../components/icons/Profile';
 import theme from './../../../theme.js';
 import Button from './../../../components/Button';
-import Info from './Info';
 import Price from './Price';
 
 import {
@@ -54,7 +51,7 @@ const styles = {
   },
   leftRail: {
     width: '60%',
-    padding: 20
+    padding: '20px 20px 20px 0px'
   },
   rightRail: {
     width: '40%',

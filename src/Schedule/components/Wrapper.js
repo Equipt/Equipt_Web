@@ -6,11 +6,13 @@ import Loading from './../../Loading';
 
 const Wrapper = ({
   schedule,
+  owned,
   loading,
   actions
 }) => {
 
   useEffect(() => {
+    console.log(owned);
     actions.fetchSchedule();
   }, []);
 

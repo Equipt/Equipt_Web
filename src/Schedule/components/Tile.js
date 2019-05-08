@@ -7,12 +7,13 @@ import theme from './../../theme.js';
 const Tile = ({
   sportingGood,
   hashId,
+  owned,
   startDate,
   endDate,
   styles
 }) => (
   <div style={ styles.tile }>
-    <Link style={ styles.link } to={ `/sporting_goods/${ sportingGood.slug }/rentals/${ hashId }` }>
+    <Link style={ styles.link } to={ `${ owned ? 'owner' : '' }/sporting_goods/${ sportingGood.slug }/rentals/${ hashId }` }>
       <h4 style={ styles.datesTxt }>{ Moment(startDate).format('MMM Do') } - { Moment(endDate).format('MMM Do') }</h4>
       <div style={ styles.image }/>
       <h4>{ sportingGood.title }</h4>

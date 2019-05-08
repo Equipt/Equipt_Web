@@ -24,7 +24,7 @@ const Price = ({
       <p style={ styles.totalRatings }>{ sportingGood.totalRatings } Reviews</p>
     </div>
     <h3 style={ styles.title }>{ sportingGood.title }</h3>
-    <h5>{ sportingGood.brand } - { sportingGood.model }</h5>
+    <h5 style={ styles.subTitle }>{ sportingGood.brand } - { sportingGood.model }</h5>
     <h3>${ sportingGood.pricePerDay }<span style={ styles.smallText }>Per Day</span></h3>
     <hr style={ styles.divider }/>
     { rental.startDate && rental.endDate ? (
@@ -32,12 +32,38 @@ const Price = ({
             <span style={ styles.smallText }>till</span>
             { Moment(rental.endDate).format('MMM Do') }
         </h3>
-      ) : null }
-    { rental.total ? <h2>{ rental.totalDays + 1 } x ${ sportingGood.pricePerDay } <span style={ styles.floatRight }>${ rental.total }</span></h2> : null }
+      ) : null
+    }
+    {
+      rental.subTotal ? (
+        <h3>{ rental.totalDays + 1 }
+          <span style={ styles.smallText }>{ rental.totalDays > 0 ? 'days' : 'day' }</span> x ${ sportingGood.pricePerDay }
+          <span style={ styles.floatRight }>${ rental.subTotal }</span>
+        </h3>) : null
+    }
+    {
+      rental.serviceFee ? (
+        <h3>Service Fee<span style={ styles.floatRight }>${ rental.serviceFee }</span></h3>
+      ) : null
+    }
+    {
+      rental.total ? (
+        <div>
+          <hr style={ styles.divider }/>
+          <h3>Total (CAD)<span style={ styles.floatRight }>${ rental.total }</span></h3>
+        </div>
+      ) : null
+    }
   </div>
 )
 
 const styles = {
+  title: {
+    width: '65%'
+  },
+  subTitle: {
+    width: '65%'
+  },
   profileContainer: {
     height: 40,
     width: 40,
