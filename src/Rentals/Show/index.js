@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from './actions.js';
+import * as modalActions from './../../Modal/actions.js';
 
 import Wrapper from './components/Wrapper';
 
@@ -14,7 +15,10 @@ const mapState = ({
 
 const mapDispatch = (dispatch) => {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators({
+      ...actions,
+      ...modalActions
+    }, dispatch)
   };
 };
 

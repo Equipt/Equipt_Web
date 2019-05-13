@@ -28,7 +28,7 @@ const styles = ({
   tile: {
     maxWidth: '30%',
     minWidth: 300,
-    margin: '0 0 50px'
+    margin: '0 50px'
   },
   image: {
     width: '100%',

@@ -77,6 +77,12 @@ const styles = {
     width: '100%',
     margin: '20px 0',
     borderBottom: `solid 1px ${ variables.colors.border }`
+  },
+  divider: {
+    borderTop: 'none',
+    borderLeft: 'none',
+    borderRight: 'none',
+    margin: '20px 0'
   }
 }
 

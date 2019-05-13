@@ -40,6 +40,7 @@ class Wrapper extends Component {
         </Slider>
         <div style={ styles.content }>
           <div style={ styles.datePickerContainer }>
+            <h3 style={{ marginBottom: 25 }}>When do you need { sportingGood.title }?</h3>
             <DatePicker rentals={ sportingGood.rentals } onChange={ dates => actions.checkAvailability(dates) }/>
           </div>
           <div style={ styles.leftRail }>
