@@ -13,7 +13,11 @@ const Cancel = ({
   const [ message, setMessage ] = useState('');
 
   return (
-    <form>
+    <form onSubmit={ e => {
+      e.preventDefault();
+      actions.cancelRental({ reason, message });
+    }}>
+      <h2>Cancel Rental</h2>
       <Select placeholder="What's the reason for cancelling?"
               onSelect={ value => setReason(value) }
               value={ reason }>
@@ -25,7 +29,7 @@ const Cancel = ({
       <TextArea placeholder="Optional: Send the owner a message"
                 onChange={ value => setMessage(value) }
                 value={ message }/>
-      <Button onClick={ () => actions.cancelRental({ reason, message }) }>Cancel Rental</Button>
+      <Button>Cancel Rental</Button>
     </form>
   )
 

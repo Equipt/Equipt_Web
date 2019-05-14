@@ -22,9 +22,13 @@ const List = ({
       <div style={ styles.list }>
         { schedule.active.map(rental => <Tile key={ randomKey() } { ...rental }/>) }
       </div>
-      { schedule.completed.length ? <h2 style={ styles.title}>Completed Rentals</h2> : null }
+      { schedule.completed.length ? <h2 style={ styles.title }>Completed Rentals</h2> : null }
       <div style={ styles.list }>
         { schedule.completed.map(rental => <Tile key={ randomKey() } { ...rental }/>) }
+      </div>
+      { schedule.cancelled.length ? <h2 style={ styles.title }>Cancelled Rentals</h2> : null }
+      <div style={ styles.list }>
+        { schedule.cancelled.map(rental => <Tile key={ randomKey() } { ...rental }/>) }
       </div>
     </div>
   )
@@ -36,7 +40,8 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     width: '100%',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
+    alignItems: 'left',
     marginTop: 40
   },
   title: {

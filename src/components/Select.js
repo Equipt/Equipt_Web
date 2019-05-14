@@ -123,7 +123,8 @@ const styles = ({
     color: '#757575',
     lineHeight: 3,
     border: 'none',
-    outline: 0
+    outline: 0,
+    cursor: 'pointer'
   },
   dropDown: {
     position: 'absolute',

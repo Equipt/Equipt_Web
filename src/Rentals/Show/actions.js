@@ -1,6 +1,7 @@
 import types from './types.js';
 import { showLoader } from './../../Loading/actions.js';
 import { setAlert } from '../../Alert/actions.js';
+import { closeModal } from '../../Modal/actions.js';
 
 export const setRental = rental => ({
   type: types.SET_RENTAL,
@@ -23,13 +24,17 @@ export const cancelRental = data =>
   const { rental } = getState();
 
   try {
-    const message = await api.put(`/sporting_goods/${ rental.sportingGood.slug }/rentals/${ rental.hashId }/cancel`, data);
+    const message = await api.put(`/sporting_goods/${ rental.sportingGood.slug }/rentals/${ rental.hashId }/cancel`, {
+      ...rental,
+      ...data
+    });
     history.push('/sporting_goods');
     dispatch(setAlert(message));
   } catch(err) {
     dispatch(setAlert(err));
+  } finally {
+    dispatch(closeModal());
   }
-
 
 }
 
@@ -45,4 +50,11 @@ export const fetchRental = ({ slug, hash }) =>
 
   dispatch(setRental(rental));
 
+}
+
+export const sendMessage = message =>
+  async(dispatch, getState, { api }) => {
+
+    const { rental } = getState();
+    
 }

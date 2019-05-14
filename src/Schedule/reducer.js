@@ -4,6 +4,7 @@ const defaultState = {
   completed: [],
   active: [],
   owned: [],
+  cancelled: [],
   empty: false
 }
 
@@ -16,6 +17,7 @@ export default (state = defaultState, { type, payload }) => {
         completed: [],
         active: [],
         owned: [],
+        cancelled: [],
         empty: false
       };
 
@@ -24,8 +26,15 @@ export default (state = defaultState, { type, payload }) => {
       }
 
       payload.reverse().forEach(rental => {
-        if (rental.owned && !rental.isComplete) return data.owned.push(rental);
-        rental.isComplete ? data.completed.push(rental) : data.active.push(rental)
+        if (rental.owned) {
+          data.owned.push(rental);
+        } else if (rental.isComplete) {
+          data.completed.push(rental)
+        } else if (rental.cancelled) {
+          data.cancelled.push(rental)
+        } else {
+          data.active.push(rental)
+        }
       });
 
       return data;

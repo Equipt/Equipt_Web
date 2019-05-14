@@ -5,8 +5,6 @@ import Radium from 'radium'
 import theme from '../theme.js';
 import withStyles from '../hocs/withStyles.js';
 
-import Close from './icons/Close.js';
-
 const TextArea = ({
   customStyles = {},
   placeholder,
@@ -15,12 +13,13 @@ const TextArea = ({
   password,
   errors = [],
   styles = {},
+  height = 200
 }) => (
   <div style={{ ...styles.container, ...customStyles }}>
     <textarea onChange={ (e) => onChange(e.target.value) }
               placeholder={ placeholder }
               value={ value }
-              style={ styles.textarea }
+              style={{ ...styles.textarea, height }}
               autoComplete="off"
     />
     <p style={ styles.error }>{ errors.join(', ') }</p>

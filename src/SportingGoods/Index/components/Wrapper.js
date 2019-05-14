@@ -40,8 +40,8 @@ const styles = {
   tiles: {
     display: 'flex',
     flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
     width: '100%',
-    justifyContent: 'space-between',
     marginTop: 40
   }
 }
