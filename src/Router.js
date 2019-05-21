@@ -4,6 +4,7 @@ import { Router, Route, Switch } from "react-router-dom";
 import Alert from './Alert';
 import Nav from './Nav';
 import Home from './Home';
+import Footer from './Footer';
 import Forgot from './Forgot';
 import Login from './Login';
 import Modal from './Modal';
@@ -34,13 +35,14 @@ export default ({ history, store }) => {
           <Route path="/signup" component={ Signup }/>
           <Route path="/forgot" component={ Forgot }/>
           <Route path="/sporting_goods/:slug/rentals/:hash" render={ props => protectedRoute(<RentalsShow { ...props }/>) }/>
-          <Route path="/owner/sporting_goods/:slug/rentals/:hash" render={ props => protectedRoute(<RentalsShow { ...props } owned={ true }/>) }/>
+          <Route path="/:owner/sporting_goods/:slug/rentals/:hash" render={ props => protectedRoute(<RentalsShow { ...props } owned={ true }/>) }/>
           <Route path="/sporting_goods" exact render={ props => protectedRoute(<SportingGoodsIndex { ...props }/>) }/>
           <Route path="/sporting_goods/new" render={ props => protectedRoute(<SportingGoodsNew { ...props }/>) }/>
           <Route path="/sporting_goods/:slug" render={ props => protectedRoute(<SportingGoodsShow { ...props }/>) }/>
           <Route path="/schedule" render={ props => protectedRoute(<Schedule { ...props }/>) }/>
           <Route path="/not_found" component={ NotFound }/>
         </Switch>
+        <Footer/>
       </div>
     </Router>
   );

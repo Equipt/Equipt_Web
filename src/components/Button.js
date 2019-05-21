@@ -12,7 +12,7 @@ const Button = ({
   customStyles = {},
   isLoading = false
 }) => (
-  <button style={{ ...customStyles, ...styles }} disabled={ disabled } onClick={ () => onClick && onClick() }>
+  <button style={{ ...customStyles, ...styles }} disabled={ disabled } onClick={ e => onClick && onClick(e) }>
   { isLoading ? <Spinner/> : children }
   </button>
 );

@@ -23,7 +23,7 @@ const Wrapper  = props => {
 
   if (!rental) return null;
 
-  const { owner, cancelled } = rental;
+  const { owner, renter, cancelled } = rental;
   const { coordinates } = owner;
 
   return loading ?
@@ -46,8 +46,7 @@ const Wrapper  = props => {
               { Moment(rental.endDate).format('dddd, MMM Do') }
             </h4>
             <h2 style={ styles.title }>{ rental.sportingGood.title }</h2>
-            <a style={ styles.option } href={ `tel:${ owner.phone }` }>Call Owner</a>
-            <p style={ styles.option } onClick={ () => actions.openModal(<Message { ...props }/>) }>Message the Owner</p>
+            <p style={styles.option} onClick={() => actions.openModal(<Message {...props} />)}>Message {rental.owned ? renter.firstname : owner.firstname }</p>
             {
               cancelled ?
               null :
@@ -56,9 +55,21 @@ const Wrapper  = props => {
             </div>
             <div style={ styles.image }></div>
           </div>
-          <h4 style={ styles.borderTop }>Pickup Address</h4>
-          <h4>{ owner.unit } { owner.street_number }, { owner.street }, { owner.city }, { owner.state }, { owner.zip }, { owner.country }</h4>
-          <h4 style={ styles.borderTop }>Total Cost</h4>
+          {
+            rental.owned ? (
+              <Fragment>
+                <h4 style={styles.borderTop}>Renter:</h4>
+                <h4>{ renter.firstname }</h4>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <h4 style={ styles.borderTop }>Pickup Address:</h4>
+                <h4>{owner.firstname}</h4>
+                <h4>{ owner.unit } { owner.street_number }, { owner.street }, { owner.city }, { owner.state }, { owner.zip }, { owner.country }</h4>
+              </Fragment>
+            )
+          }
+          <h4 style={ styles.borderTop }>Total Cost:</h4>
           <h4>${ rental.total }</h4>
       </section>
     </Fragment>)
@@ -71,14 +82,15 @@ const styles = ({ rental }) => ({
     ...theme.container,
     alignItems: 'left',
     height: '100%',
-    margin: '50px auto'
+    margin: '20px auto'
   },
   borderTop: {
     borderTop: `solid 1px ${ theme.colors.border }`,
     paddingTop: 15
   },
   option: {
-    color: theme.colors.primary
+    color: theme.colors.primary,
+    cursor: 'pointer'
   },
   cancelledTxt: {
     color: theme.colors.error.color

@@ -30,7 +30,7 @@ const styles = {
     top: 0,
     height: '100vh',
     width: '100vw',
-    zIndex: 1
+    zIndex: 1000
   },
   overlay: {
     position: 'absolute',

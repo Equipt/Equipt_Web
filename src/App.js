@@ -19,6 +19,7 @@ const history = createHistory();
 
 const api = new Api(history);
 
+// Algolia Setup
 const algoliaClient = algoliasearch(
   process.env.REACT_APP_AGOLIA_ID,
   process.env.REACT_APP_AGOLIA_SEARCH_ONLY_KEY
@@ -26,8 +27,10 @@ const algoliaClient = algoliasearch(
 
 const algolia = algoliaClient.initIndex(process.env.REACT_APP_AGOLIA_INDICE);
 
+// Thunk Setup
 const thunkMiddleware = thunk.withExtraArgument({ api, history, algolia });
 
+// Store Setup
 const store = createStore(
   reducer,
   composeEnhancer(applyMiddleware(thunkMiddleware))

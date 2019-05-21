@@ -9,7 +9,7 @@ const Filter = ({
   actions,
   sportingGoods: {
     keyword,
-    location,
+    location = {},
     distance
   }
 }) => (

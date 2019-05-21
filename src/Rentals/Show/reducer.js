@@ -8,6 +8,9 @@ const defaultState = {
   owner: {
     coordinates: {}
   },
+  renter: {
+
+  },
   agreedToTerms: false
 }
 

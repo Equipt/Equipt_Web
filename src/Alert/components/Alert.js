@@ -31,7 +31,7 @@ const styles = ({
     fontSize: 15,
     lineHeight: 1.8,
     color: alert && alert.error ? colors.error.color : colors.info.color,
-    border: `solid 2px ${ alert && alert.error ? colors.error.border : colors.info.bo }`,
+    border: `solid 2px ${ alert && alert.error ? colors.error.border : colors.primary }`,
     background: '#fff',
     fontWeight: 'bold',
     zIndex: 10000

@@ -109,6 +109,39 @@ export const verify = pin => async(dispatch, getState, { api }) => {
 
 }
 
+export const updatePassword = () => 
+  async(dispatch, getState, { api }) => {
+
+  try {
+
+    const data = getState()['@form/profile'];  
+    const successNotice = await api.put('/password_update', data);
+
+    dispatch(setAlert(successNotice));
+
+  } catch(data) {
+    
+    dispatch(setAlert(data));    
+    
+  }
+
+}
+
+export const toggleNotify = settings => 
+  async (dispatch, getState, { api }) => {
+    
+    const { user } = getState()['session'];
+    const userId = user.id;
+
+    try {
+      const user = await api.put(`/user/${ userId }`, { user: settings });
+      sessionService.saveUser(user);
+      dispatch(setAlert({ info: 'Successfully updated'} ));
+    } catch(err) {
+      dispatch(setAlert({ error: 'Oh no, something went wrong, please try again later'}));
+    }
+} 
+
 export const changedTab = nextTab => ({
   type: types['@PROFILE/CHANGE_TAB'],
   payload: nextTab

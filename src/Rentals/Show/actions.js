@@ -24,7 +24,7 @@ export const cancelRental = data =>
   const { rental } = getState();
 
   try {
-    const message = await api.put(`/sporting_goods/${ rental.sportingGood.slug }/rentals/${ rental.hashId }/cancel`, {
+    const message = await api.put(`/rentals/${ rental.hashId }/cancel`, {
       ...rental,
       ...data
     });
@@ -38,13 +38,13 @@ export const cancelRental = data =>
 
 }
 
-export const fetchRental = ({ slug, hash }) =>
+export const fetchRental = ({ slug, hash, owner = false }) =>
   async(dispatch, getState, { api }) => {
 
   await dispatch(showLoader(true));
   dispatch(clearRental());
 
-  const rental = await api.get(`/sporting_goods/${ slug }/rentals/${ hash }`);
+  const rental = await api.get(`${ owner ? '/owner': '' }/sporting_goods/${ slug }/rentals/${ hash }`);
 
   await dispatch(showLoader(false));
 
@@ -55,6 +55,13 @@ export const fetchRental = ({ slug, hash }) =>
 export const sendMessage = message =>
   async(dispatch, getState, { api }) => {
 
-    const { rental } = getState();
-    
+  const { rental } = getState();
+
+  try {
+    const data = await api.post(`/rentals/${ rental.hashId }/send_message`, { message });
+    dispatch(setRental(data));
+  } catch(err) {
+    dispatch(setAlert(err));
+  }
+
 }

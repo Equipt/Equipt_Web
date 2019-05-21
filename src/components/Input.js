@@ -22,7 +22,7 @@ const Input = ({
     <input onChange={ (e) => onChange(e.target.value) }
            type={ type }
            placeholder={ placeholder }
-           value={ value }
+           defaultValue={ value }
            style={ styles.input }
            autoComplete="off"
     />

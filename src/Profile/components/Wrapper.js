@@ -1,52 +1,46 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 
 import { Tabs, Tab } from '../../components/Tabs';
 import Basic from './Basic';
 import Contact from './Contact';
 import Verification from './Verification';
+import Security from './Security';
 
-class Profile extends Component {
+const Profile = props => {
 
-  constructor(props) {
-    super(props);
-    this.hasBasic = this.hasBasic.bind(this);
-    this.hasContact = this.hasContact.bind(this);
-  }
+  useEffect(() => {
+    actions.setupForm();
+  }, []);
 
-  componentDidMount() {
-    this.props.actions.setupForm();
-  }
+  const {
+    user,
+    actions,
+    form
+  } = props;
 
-  hasBasic() {
-    const { user } = this.props;
-    return !!(user.firstname && user.lastname && user.email);
-  }
+  const hasBasic = !!(user.firstname && user.lastname && user.email);
+  const hasContact = Object.keys({ ...user.phone, ...user.address }).length > -1;
 
-  hasContact() {
-    const { user } = this.props;
-    return !!(Object.keys(user.address).length && Object.keys(user.phone).length);
-  }
-
-  render() {
-
-    const { user, form, actions } = this.props;
-
-    return (
-      <section>
-        <Tabs customStyles={ styles.list } currentTab={ form.currentTab  } onChange={ currentTab => actions.changedTab(currentTab) }>
-          <Tab title="Basic" name="basic" checked={ this.hasBasic() }>
-            <Basic { ...this.props }/>
-          </Tab>
-          <Tab title="Contact" name="contact" checked={ this.hasContact() }>
-            <Contact { ...this.props }/>
-          </Tab>
-          <Tab title="Verification" name="verification" checked={ user.isVerified }>
-            <Verification { ...this.props }/>
-          </Tab>
-        </Tabs>
-      </section>
-    )
-  }
+  return (
+    <section>
+      <Tabs customStyles={styles.list} 
+            currentTab={form.currentTab} 
+            onChange={currentTab => actions.changedTab(currentTab)}>
+        <Tab title="Basic" name="basic" checked={ hasBasic }>
+          <Basic {...props} />
+        </Tab>
+        <Tab title="Contact" name="contact" checked={ hasContact }>
+          <Contact {...props} />
+        </Tab>
+        <Tab title="Verification" name="verification" checked={user.isVerified}>
+          <Verification {...props} />
+        </Tab>
+        <Tab title="Security" name="security">
+          <Security {...props} />
+        </Tab>
+      </Tabs>
+    </section>
+  )
 
 }
 

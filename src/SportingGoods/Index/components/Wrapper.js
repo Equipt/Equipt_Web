@@ -35,7 +35,8 @@ const Wrapper = props => {
 const styles = {
   container: {
     ...theme.container,
-    height: '100%'
+    minHeight: '80vh',
+    height: 'inherit'
   },
   tiles: {
     display: 'flex',

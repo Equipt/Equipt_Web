@@ -2,7 +2,7 @@ import React from 'react';
 import Radium from 'radium';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import ImageUploader from 'react-images-upload';
+// import ImageUploader from 'react-images-upload';
 import theme from '../../theme.js';
 
 const Basic = ({
@@ -12,23 +12,22 @@ const Basic = ({
   moveToTab
 }) => (
   <form style={ styles.container }>
-    <div style={ styles.rightRail }>
-      <Input  placeholder="First Name"
-              value={ form.firstname || user.firstname }
-              customStyles={ styles.input }
-              onChange={ value => actions._bindOnChange('firstname', value) }/>
-      <Input  placeholder="Last Name"
-              value={ form.lastname || user.lastname }
-              customStyles={ styles.input }
-              onChange={ value => actions._bindOnChange('lastname', value) }/>
-      <Input  placeholder="email"
-              value={ form.email || user.email }
-              customStyles={ styles.input }
-              onChange={ value => actions._bindOnChange('email', value) }/>
-    </div>
-    <div style={ styles.leftRail }>
-      <ImageUploader withPreview={ true } onChange={ ([ image ]) => actions._bindOnChange('image', image) }/>
-    </div>
+    
+    <Input  placeholder="First Name"
+            value={ form.firstname || user.firstname }
+            customStyles={ styles.input }
+            errors={ form.errors['firstname'] }
+            onChange={ value => actions._bindOnChange('firstname', value) }/>
+    <Input  placeholder="Last Name"
+            value={ form.lastname || user.lastname }
+            customStyles={ styles.input }
+            errors={ form.errors['lastname'] }
+            onChange={ value => actions._bindOnChange('lastname', value) }/>
+    <Input  placeholder="email"
+            value={ form.email || user.email }
+            customStyles={ styles.input }
+            errors={ form.errors['email'] }
+            onChange={ value => actions._bindOnChange('email', value) }/>
     <Button
       customStyles={ styles.submit }
       isLoading={ form.isLoading }
@@ -45,6 +44,7 @@ const styles = {
   container: {
     display: 'flex',
     flexWrap: 'wrap',
+    flexDirection: 'column',
     justifyContent: 'space-between',
     margin: 0,
     [theme.media.tabletAndAbove]: {

@@ -23,16 +23,16 @@ const styles = {
   container: {
     maxWidth: 1200,
     width: '100vw',
-    minHeight: '100%',
+    minHeight: '85vh',
     top: 90,
-    height: 'calc(100vh - 70px)',
     margin: '0 auto',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
     padding: '0 15px',
-    lineHeight: 3
+    lineHeight: 3,
+    marginBottom: 50
   },
   form: {
     wrapper: {
